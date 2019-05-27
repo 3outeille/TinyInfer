@@ -20,9 +20,9 @@ namespace io{
         auto tensor_content = json_node["tensor_content"];
 
         // check tensor dimension
-        if (tensor_shape.size() != 4){
-            std::cerr << "[ERROR] Dimension Mismatch! Expected: 4  Actual: " <<  tensor_shape.size() << std::endl;
-            throw std::runtime_error("[ERROR] Dimension Mismatch! Expected: 4");
+        if (tensor_shape.size() != 1){
+            std::cerr << "[ERROR] Dimension Mismatch! Expected: 1  Actual: " <<  tensor_shape.size() << std::endl;
+            throw std::runtime_error("[ERROR] Dimension Mismatch! Expected: 1");
         }
 
         // Loading tensor
@@ -52,9 +52,9 @@ namespace io{
         auto tensor_content = json_node["tensor_content"];
 
         // check tensor dimension
-        if (tensor_shape.size() != 4){
-            std::cerr << "[ERROR] Dimension Mismatch! Expected: 4  Actual: " <<  tensor_shape.size() << std::endl;
-            throw std::runtime_error("[ERROR] Dimension Mismatch! Expected: 4");
+        if (tensor_shape.size() != 2){
+            std::cerr << "[ERROR] Dimension Mismatch! Expected: 2  Actual: " <<  tensor_shape.size() << std::endl;
+            throw std::runtime_error("[ERROR] Dimension Mismatch! Expected: 2");
         }
 
         // Loading tensor
@@ -87,8 +87,8 @@ namespace io{
 
         // check tensor dimension
         if (tensor_shape.size() != 3){
-            std::cerr << "[ERROR] Dimension Mismatch! Expected: 4  Actual: " <<  tensor_shape.size() << std::endl;
-            throw std::runtime_error("[ERROR] Dimension Mismatch! Expected: 4");
+            std::cerr << "[ERROR] Dimension Mismatch! Expected: 3  Actual: " <<  tensor_shape.size() << std::endl;
+            throw std::runtime_error("[ERROR] Dimension Mismatch! Expected: 3");
         }
 
         // Loading tensor

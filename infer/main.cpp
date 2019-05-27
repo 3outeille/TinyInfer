@@ -5,60 +5,13 @@
 #include <Eigen/Dense>
 #include <nlohmann/json.hpp>
 #include <unsupported/Eigen/CXX11/Tensor>
+#include "io.h"
 #include "graph.pb.h"
 #include "node_def.pb.h"
 #include "attr_value.pb.h"
 
 using namespace tensorflow;
 using nlohmann::json;
-
-Eigen::Tensor<float, 4> load_kernal_weight(std::string weight_file){
-    // decode json file
-    std::string encoded_json;
-    std::ifstream input(weight_file);
-    std::stringstream buffer;
-    buffer << input.rdbuf();
-
-    encoded_json = buffer.str();
-
-    auto json_node = json::parse(encoded_json);
-//    std::cout << json_node["name"] << std::endl;
-//    std::cout << json_node["shape"] << std::endl;
-//    std::cout << json_node["tensor_content"] << std::endl;
-    auto tensor_shape = json_node["shape"];
-    auto tensor_content = json_node["tensor_content"];
-
-    // check tensor dimension
-    if (tensor_shape.size() != 4){
-        std::cerr << "[ERROR] Dimension Mismatch! Expected: 4  Actual: " <<  tensor_shape.size() << std::endl;
-        throw std::runtime_error("[ERROR] Dimension Mismatch! Expected: 4");
-    }
-
-    // Loading tensor
-    Eigen::Tensor<float, 4> result(tensor_shape[0],tensor_shape[1],tensor_shape[2],tensor_shape[3]);
-    result.setZero();
-    size_t counter = 0;
-    for (int i = 0; i < tensor_shape[0]; i++){
-        for (int j = 0; j < tensor_shape[1]; j++){
-            for (int k = 0; k < tensor_shape[2]; k++){
-                for (int w = 0; w < tensor_shape[3]; w++){
-                    result(i,j,k,w) = tensor_content[counter];
-                    counter ++;
-                }
-            }
-        }
-    }
-
-    std::cout << result(0,0,0,0) << std::endl;
-    std::cout << result(0,0,0,1) << std::endl;
-    std::cout << result(0,0,0,2) << std::endl;
-    std::cout << result(0,0,0,3) << std::endl;
-    std::cout << result(0,0,0,4) << std::endl;
-
-
-
-    return result;
-}
 
 int main(int argc, const char * argv[]){
     // try eigen tensors
