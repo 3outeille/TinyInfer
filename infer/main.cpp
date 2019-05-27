@@ -73,8 +73,8 @@ int main(int argc, const char * argv[]){
 //
 //    return 0;
     // For testing
-    Eigen::Tensor<float, 4> tensor_test = load_kernal_weight("/home/ernest/cs133_proj/data/tensor_weights/conv2d_1_kernel.kw");
-    return 0;
+//    Eigen::Tensor<float, 4> tensor_test = load_kernal_weight("/home/ernest/cs133_proj/data/tensor_weights/conv2d_1_kernel.kw");
+//    return 0;
 
     std::cout << "Hello World" << std::endl;
     std::string input_pb = "/home/ernest/cs133_proj/data/model.pb";

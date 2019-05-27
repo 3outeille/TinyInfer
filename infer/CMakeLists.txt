@@ -55,11 +55,13 @@ execute_process(
 
 
 # ============================= Executable ===================================
-link_directories(proto_built)
+file(GLOB UTIL_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} utils/*)
+
+link_directories(proto_built utils)
 
 file(GLOB PROTO_BUILT_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR} proto_built/*.h)
 file(GLOB PROTO_BUILT_SRC ${CMAKE_CURRENT_SOURCE_DIR} proto_built/*.cc)
-add_executable(main main.cpp ${PROTO_BUILT_INCLUDE} ${PROTO_BUILT_SRC})
+add_executable(main main.cpp ${PROTO_BUILT_INCLUDE} ${PROTO_BUILT_SRC} ${UTIL_SRC})
 target_include_directories(main PUBLIC proto_built)
 target_link_libraries(main nlohmann_json::nlohmann_json Eigen3::Eigen ${Protobuf_LIBRARIES})
 #target_link_libraries(main Eigen3::Eigen)
