@@ -37,7 +37,8 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 file(GLOB PROTO_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} proto/*.proto)
 execute_process(
         COMMAND mkdir -p proto_built
-        COMMAND ${PROTOC} -I=proto --cpp_out=proto_built ${PROTO_SRC}
+#        COMMAND ${PROTOC} -I=proto --cpp_out=proto_built ${PROTO_SRC}
+        COMMAND ./scripts/compile_pb.sh ${PROTOC} ${CMAKE_CURRENT_SOURCE_DIR}/proto ${CMAKE_CURRENT_SOURCE_DIR}/proto_built ${CMAKE_CURRENT_BINARY_DIR}/proto_built
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
@@ -56,13 +57,15 @@ execute_process(
 
 # ============================= Executable ===================================
 file(GLOB UTIL_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} utils/*)
+file(GLOB FRONTEND_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} frontend/*)
+set(SRC_INCLUDE_DIRS utils frontend)
 
-link_directories(proto_built utils)
+link_directories(proto_built ${SRC_INCLUDE_DIRS})
 
 file(GLOB PROTO_BUILT_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR} proto_built/*.h)
 file(GLOB PROTO_BUILT_SRC ${CMAKE_CURRENT_SOURCE_DIR} proto_built/*.cc)
-add_executable(main main.cpp ${PROTO_BUILT_INCLUDE} ${PROTO_BUILT_SRC} ${UTIL_SRC})
-target_include_directories(main PUBLIC proto_built utils)
+add_executable(main main.cpp ${PROTO_BUILT_INCLUDE} ${PROTO_BUILT_SRC} ${UTIL_SRC} ${FRONTEND_SRC})
+target_include_directories(main PUBLIC proto_built ${SRC_INCLUDE_DIRS})
 target_link_libraries(main nlohmann_json::nlohmann_json Eigen3::Eigen ${Protobuf_LIBRARIES})
 #target_link_libraries(main Eigen3::Eigen)
 #target_link_libraries(load_tf PRIVATE Eigen3::Eigen pybind11::embed)
@@ -72,7 +75,8 @@ target_link_libraries(main nlohmann_json::nlohmann_json Eigen3::Eigen ${Protobuf
 ADD_CUSTOM_COMMAND(
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/proto_cache_file
         COMMAND mkdir -p proto_built
-        COMMAND ${PROTOC} -I=proto --cpp_out=proto_built ${PROTO_SRC}
+#        COMMAND ${PROTOC} -I=proto --cpp_out=proto_built ${PROTO_SRC}
+        COMMAND ./scripts/compile_pb.sh ${PROTOC} ${CMAKE_CURRENT_SOURCE_DIR}/proto ${CMAKE_CURRENT_SOURCE_DIR}/proto_built ${CMAKE_CURRENT_BINARY_DIR}/proto_built
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
