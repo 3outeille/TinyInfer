@@ -10,6 +10,8 @@
 #include "node_def.pb.h"
 #include "attr_value.pb.h"
 
+#include "parser.h"
+
 using namespace tensorflow;
 using nlohmann::json;
 
@@ -31,6 +33,13 @@ int main(int argc, const char * argv[]){
 
     std::cout << "Hello World" << std::endl;
     std::string input_pb = "/home/ernest/cs133_proj/data/model.pb";
+    std::string tensor_weights_dir = "/home/ernest/cs133_proj/data/tensor_weights";
+
+    Parser parser;
+    parser.parse(input_pb, tensor_weights_dir);
+
+    std::cout << "End of execution" << std::endl;
+    return 0;
 
     std::ifstream input(input_pb);
 
