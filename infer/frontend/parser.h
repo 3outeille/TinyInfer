@@ -11,7 +11,7 @@
 
 #include "graph.pb.h"
 #include "node_def.pb.h"
-#include "tensor_base.h"
+#include "node_base.h"
 
 
 using namespace tensorflow;
@@ -29,7 +29,7 @@ public:
     void parse(const std::string & filename, const std::string & weights_dir);
 
 private:
-    std::map<std::string, std::shared_ptr<TensorBase>> graph_;
+    std::map<std::string, std::shared_ptr<NodeBase>> graph_;
 
     // ============== Helper Functions =============
     /**
@@ -38,20 +38,29 @@ private:
      */
     void init_nodes(const GraphDef& graph_def);
 
+    /**
+     * Build dependency for all nodes
+     */
+    void build_dependency(const GraphDef& graph_def);
+
     void parse_single_node(const NodeDef& node_def);
 
     void parse_input(const NodeDef& node_def);
 
-    void parse_conv(const NodeDef& node_def);
+    /**
+     * Parse the dependency
+     * @param node_def
+     */
+    void parse_dep(const NodeDef &node_def);
 
     void parse_dense(const NodeDef& node_def);
 
     /**
      * The name from Protobuf contains two parts node_name + "/" + "operation"
      * e.g: conv2d_1/convolution, conv2d_1/kernel, conv2d_1/bias
-     * @return: the actual node name. e.g. conv2d_1
+     * @return: vector of node attributions {node_name, operation}
      */
-    std::string parse_node_name(const std::string parse_node_name);
+    std::vector<std::string> parse_node_name(const std::string& parse_node_name);
     // ================== Attr =====================
 
 };

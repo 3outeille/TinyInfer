@@ -38,6 +38,7 @@ int main(int argc, const char * argv[]){
     Parser parser;
     parser.parse(input_pb, tensor_weights_dir);
 
+
     std::cout << "End of execution" << std::endl;
     return 0;
 
