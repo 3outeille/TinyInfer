@@ -1,6 +1,8 @@
 #pragma once
 
 #include <deque>
+#include <memory>
+#include <string>
 #include <vector>
 
 #include "input.hpp"
@@ -18,6 +20,7 @@ class Node : public std::enable_shared_from_this<Node> {
   const std::string m_node_type;
   size_t m_instance_id;
   const std::string m_unique_name;
+  static std::atomic<size_t> m_next_instance_id;
 
   std::deque<Input> m_inputs;
   std::deque<Output> m_outputs;
@@ -26,13 +29,13 @@ class Node : public std::enable_shared_from_this<Node> {
   // validating correctness of the node
   virtual void validate_and_infer();
 
-  Node(const std::string& node_type, const NodeVector& arguments);
+  Node(const std::string& node_type);
 
  public:
   virtual ~Node();
 
   const std::string& get_description() const { return m_node_type; }
-  size_t get_instance_id const() { return m_instance_id; }
+  size_t get_instance_id() const { return m_instance_id; }
   const std::string& get_name() const { return m_unique_name; }
   bool is_same_op_type(const std::shared_ptr<Node>& node) const {
     return get_description() == node->get_description();
@@ -43,15 +46,15 @@ class Node : public std::enable_shared_from_this<Node> {
   size_t get_output_num() const { return m_outputs.size(); }
 
   // get nodes of providing input
-  std::shared_ptr<Node> get_argument(size_t index) const;
+  std::shared_ptr<Node> get_argument(size_t index) const {
+    return m_inputs.at(index).get_output().get_node();
+  }
   NodeVector get_arguments() const;
   // get nodes of using output
   NodeVector get_users() const;
 
   // get input/output queue
-  std::deque<Input>& get_inputs() const { return m_inputs; }
-  std::deque<Output>& get_inputs() const { return m_outputs; }
-
-  virtual void set_weights() = 0;
-}
+  std::deque<Input>& get_inputs() { return m_inputs; }
+  std::deque<Output>& get_outputs() { return m_outputs; }
+};
 }  // namespace tinyinfer
