@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <atomic>
 
 #include "input.hpp"
 #include "output.hpp"
