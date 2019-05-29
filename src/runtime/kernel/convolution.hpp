@@ -38,6 +38,7 @@ const std::shared_ptr<runtime::Tensor>Conv(const std::shared_ptr<runtime::Tensor
     Tensor4f _output = Tensor4f(_input.dimension(0), _output_row,
                                 _output_col, _kernel.dimension(3)); /// return value
 
+    #pragma omp parallel for collapse(4)
     for (auto i = 0; i < _output.dimension(0); ++i) {
         for (auto l = 0; l < _output.dimension(3); ++l) {
 

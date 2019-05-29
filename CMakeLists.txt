@@ -3,9 +3,9 @@ project(TinyInfer)
 
 set(CMAKE_CXX_STANDARD 14)
 
-# For protobuf
+# For protobuf and openMP
 set(PROTOC /usr/local/bin/protoc)
-set(CMAKE_CXX_FLAGS "-pthread -I/usr/local/include -L/usr/local/lib -lprotobuf -pthread")
+set(CMAKE_CXX_FLAGS "-pthread -I/usr/local/include -L/usr/local/lib -lprotobuf -pthread -fopenmp")
 
 # =============================== JSON =====================================
 find_package(nlohmann_json 3.2.0 REQUIRED)
