@@ -17,19 +17,19 @@ namespace runtime {
 namespace kernel {
 
 /**
- * @brief relu layer
+ * @brief drop out layer
  * @param _input
  */
-Tensor2f Relu(Tensor2f _input) {
-    return _input.cwiseMax(static_cast<float>(0));
+Tensor2f Dropout(Tensor2f _input) {
+    return _input;
 }
 
-Tensor3f Relu(Tensor3f _input) {
-    return _input.cwiseMax(static_cast<float>(0));
+Tensor3f Dropout(Tensor3f _input) {
+    return _input;
 }
 
-Tensor4f Relu(Tensor4f _input) {
-    return _input.cwiseMax(static_cast<float>(0));
+Tensor4f Dropout(Tensor4f _input) {
+    return _input;
 }
 }
 }
