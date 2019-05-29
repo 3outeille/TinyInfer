@@ -15,5 +15,7 @@
 #include "op/softmax.hpp"
 #include "op/dense.hpp"
 #include "op/maxpooling_2d.hpp"
+#include "op/dropout.hpp"
+#include "op/flatten.hpp"
 
 #include "runtime/tensor.hpp"

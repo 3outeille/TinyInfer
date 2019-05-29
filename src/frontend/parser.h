@@ -67,6 +67,7 @@ namespace tinyinfer {
         void parse_relu(const NodeDef& node_def);
         void parse_softmax(const NodeDef& node_def);
         void parse_dropout(const NodeDef& node_def);
+        void parse_flatten(const NodeDef& node_def);
 
         // ======================= General Helper Functions =======================
         /**
