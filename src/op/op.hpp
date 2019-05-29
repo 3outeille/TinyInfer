@@ -1,6 +1,7 @@
 #pragma once
 
 #include "node.hpp"
+#include "runtime/tensor.hpp"
 
 namespace tinyinfer {
 namespace op {
@@ -13,7 +14,8 @@ class Op : public Node {
   // execute the exact computing and write the result into output
   void virtual forward() = 0;
   // validating correctness of the node
-  virtual void validate_and_infer();
+  // currently do nothing
+  virtual void validate_and_infer() {;}
   bool is_same_op_type(const std::shared_ptr<Op>& op) const {
     return get_description() == op->get_description();
   }
