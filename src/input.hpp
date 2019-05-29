@@ -31,10 +31,5 @@ class Input {
   std::shared_ptr<runtime::Tensor> get_tensor_ptr();
   // return the shape of tensor of the connected output
   const Shape& get_shape() const;
-
- private:
-  Input(const Input&) = delete;
-  Input(Input&&) = delete;
-  Input& operator=(const Input&) = delete;
 };
 }  // namespace tinyinfer
