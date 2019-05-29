@@ -1,4 +1,4 @@
-#include "op/convolution.hpp"
+#include "op/convolution_op.hpp"
 #include "runtime/kernel/convolution.hpp"
 
 namespace tinyinfer{

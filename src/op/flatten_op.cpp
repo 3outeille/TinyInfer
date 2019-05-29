@@ -1,5 +1,5 @@
-#include "op/flatten.hpp"
-#include "runtime/kernel/flatten_funct.hpp"
+#include "op/flatten_op.hpp"
+#include "runtime/kernel/flatten.hpp"
 
 namespace tinyinfer{
     namespace op{

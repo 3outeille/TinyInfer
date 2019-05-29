@@ -1,4 +1,4 @@
-#include "op/dense.hpp"
+#include "op/dense_op.hpp"
 #include "runtime/kernel/dense.hpp"
 
 namespace tinyinfer{

@@ -3,8 +3,8 @@
 //
 
 #include <tinyinfer.hpp>
-#include <dropout.hpp>
-#include <flatten.hpp>
+#include <dropout_op.hpp>
+#include <flatten_op.hpp>
 #include "parser.hpp"
 
 namespace tinyinfer {

@@ -1,4 +1,4 @@
-#include "op/maxpooling_2d.hpp"
+#include "op/maxpooling_2d_op.hpp"
 #include "runtime/kernel/maxpool.hpp"
 
 namespace tinyinfer{

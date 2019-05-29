@@ -1,4 +1,4 @@
-#include "op/softmax.hpp"
+#include "op/softmax_op.hpp"
 #include "runtime/kernel/softmax.hpp"
 
 namespace tinyinfer{
