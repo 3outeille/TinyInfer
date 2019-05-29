@@ -20,12 +20,14 @@ class Tensor {
   Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> m_tensor_rank4;
 
  public:
-  Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor>& tensor);
-  Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 2, Eigen::RowMajor>& tensor);
-  Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 3, Eigen::RowMajor>& tensor);
-  Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor>& tensor);
+  Tensor(const Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor>& tensor);
+  Tensor(const Eigen::Tensor<TENSOR_DATA_TYPE, 2, Eigen::RowMajor>& tensor);
+  Tensor(const Eigen::Tensor<TENSOR_DATA_TYPE, 3, Eigen::RowMajor>& tensor);
+  Tensor(const Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor>& tensor);
 
   const Shape& get_shape() const { return m_shape; }
+
+  const size_t& get_rank() const { return m_rank; }
 
   const Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor>&
   get_tensor_r1_ptr() {

@@ -5,12 +5,16 @@
 #include <tinyinfer.hpp>
 #include <dropout.hpp>
 #include <flatten.hpp>
-#include "parser.h"
+#include "parser.hpp"
 
 namespace tinyinfer {
 
     Parser::Parser(): m_nodes(), m_activations(), m_input_name(), m_input_node() {
 
+    }
+
+    Parser::~Parser() {
+        auto debug = true;
     }
 
     void Parser::parse(const std::string &filename, const std::string &weights_dir) {
@@ -64,6 +68,7 @@ namespace tinyinfer {
                 m_input_name = node_name;
                 m_input_node = std::make_shared<op::Parameter>();
 //                m_nodes.insert(std::make_pair(node_name, new_node));
+
             }
             else if (node_op == "Relu"){            // relu
                 parse_relu(node);
@@ -71,7 +76,7 @@ namespace tinyinfer {
             else if (node_op == "Conv2D"){          // conv 2d
                 parse_conv2d(node);
             }
-            else if (node_op == "Dense"){
+            else if (node_op == "MatMul"){          // dense
                 parse_dense(node);
             }
             else if (node_op == "MaxPool"){
@@ -83,6 +88,9 @@ namespace tinyinfer {
             }
             else if (node_op == "Reshape"){
                 parse_flatten(node);
+            }
+            else if (node_op == "Softmax"){
+                parse_softmax(node);
             }
         }
     }
@@ -121,6 +129,20 @@ namespace tinyinfer {
         m_activations.insert(std::make_pair(node_name, new_node));
     }
 
+    void Parser::parse_softmax(const tensorflow::NodeDef &node_def) {
+        // make a new softmax node
+        std::string node_name = parse_node_name(node_def.name())[0];
+        auto inputs = parse_activation_inputs(node_def);
+
+        if (inputs.size() != 1){
+            // assert one input
+            throw std::runtime_error("Relu only accept one input!");
+        }
+
+        auto new_node = std::make_shared<op::SoftmaxOp>(m_nodes[inputs[0]]);
+        m_activations.insert(std::make_pair(node_name, new_node));
+    }
+
     void Parser::parse_dense(const tensorflow::NodeDef &node_def) {
         std::string node_name = parse_node_name(node_def.name())[0];
         auto inputs = parse_node_inputs(node_def);
@@ -134,7 +156,7 @@ namespace tinyinfer {
         std::shared_ptr<Node> input_node = get_input_node(inputs[0]);
 
         // create node and set attrs
-        auto new_node = std::make_shared<op::ReluOp>(input_node);
+        auto new_node = std::make_shared<op::DenseOp>(input_node);
         m_nodes.insert(std::make_pair(node_name, new_node));
 
         // TODO: set attr
@@ -288,9 +310,9 @@ namespace tinyinfer {
 
         results.push_back(input);
 
-        for (auto v : results){
-            std::cout << v << std::endl;
-        }
+//        for (auto v : results){
+//            std::cout << v << std::endl;
+//        }
 
         return results;
     }

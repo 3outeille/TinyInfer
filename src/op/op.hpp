@@ -12,7 +12,7 @@ class Op : public Node {
   Op(const std::string& node_type, const NodeVector& arguments)
       : Node(node_type, arguments) {}
   // execute the exact computing and write the result into output
-  void virtual forward() = 0;
+  virtual void forward() = 0;
   // validating correctness of the node
   // currently do nothing
   virtual void validate_and_infer() {;}

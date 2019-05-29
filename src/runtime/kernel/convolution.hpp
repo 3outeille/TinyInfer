@@ -7,14 +7,14 @@
 
 #include "runtime/tensor.hpp"
 
-typedef typename Eigen::Tensor<float, 1> Tensor1f;
-typedef typename Eigen::Tensor<float, 2> Tensor2f;
-typedef typename Eigen::Tensor<float, 3> Tensor3f;
-typedef typename Eigen::Tensor<float, 4> Tensor4f;
-
 namespace tinyinfer {
 namespace runtime {
 namespace kernel {
+
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor> Tensor1f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 2, Eigen::RowMajor> Tensor2f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 3, Eigen::RowMajor> Tensor3f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
 
 /**
  * @brief convolution layer
@@ -25,7 +25,14 @@ namespace kernel {
  * @param stride_col
  * @return
  */
-Tensor4f Conv(Tensor4f _kernel, Tensor1f _bias, Tensor4f _input, int stride_row, int stride_col) {
+const std::shared_ptr<runtime::Tensor>Conv(const std::shared_ptr<runtime::Tensor> kernel,
+                                            const std::shared_ptr<runtime::Tensor> bias,
+                                            const std::shared_ptr<runtime::Tensor> input,
+                                            int stride_row, int stride_col) {
+    Tensor4f _kernel = kernel->get_tensor_r2_ptr();
+    Tensor1f _bias = bias->get_tensor_r1_ptr();
+    Tensor4f _input = input->get_tensor_r2_ptr();
+
     long _output_row = ceil((_input.dimension(1) - _kernel.dimension(0)) / stride_row) + 1;
     long _output_col = ceil((_input.dimension(2) - _kernel.dimension(1)) / stride_col) + 1;
     Tensor4f _output = Tensor4f(_input.dimension(0), _output_row,
@@ -57,7 +64,7 @@ Tensor4f Conv(Tensor4f _kernel, Tensor1f _bias, Tensor4f _input, int stride_row,
         }
     }
 
-    return _output;
+    return std::make_shared<runtime::Tensor>(_output);
 }
 }
 }

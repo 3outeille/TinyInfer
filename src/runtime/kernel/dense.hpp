@@ -7,14 +7,14 @@
 
 #include "runtime/tensor.hpp"
 
-typedef typename Eigen::Tensor<float, 1> Tensor1f;
-typedef typename Eigen::Tensor<float, 2> Tensor2f;
-typedef typename Eigen::Tensor<float, 3> Tensor3f;
-typedef typename Eigen::Tensor<float, 4> Tensor4f;
-
 namespace tinyinfer {
 namespace runtime {
 namespace kernel {
+
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor> Tensor1f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 2, Eigen::RowMajor> Tensor2f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 3, Eigen::RowMajor> Tensor3f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
 
 /**
  * @brief dense layer
@@ -22,7 +22,13 @@ namespace kernel {
  * @param _bias
  * @param _input
  */
-Tensor2f Dense(Tensor2f _kernel, Tensor1f _bias, Tensor2f _input) {
+std::shared_ptr<runtime::Tensor> Dense(const std::shared_ptr<runtime::Tensor> kernel,
+                                        const std::shared_ptr<runtime::Tensor> bias,
+                                        const std::shared_ptr<runtime::Tensor> input) {
+    Tensor2f _kernel = kernel->get_tensor_r2_ptr();
+    Tensor1f _bias = bias->get_tensor_r1_ptr();
+    Tensor2f _input = input->get_tensor_r2_ptr();
+
     Tensor2f _output = Tensor2f(_input.dimension(0), _kernel.dimension(1)); /// return value
     _output.setZero(); // init
 
@@ -42,7 +48,7 @@ Tensor2f Dense(Tensor2f _kernel, Tensor1f _bias, Tensor2f _input) {
 
     _output += temp_bias.broadcast(broadcast_dims);
 
-    return _output;
+    return std::make_shared<runtime::Tensor>(_output);
 }
 }
 }

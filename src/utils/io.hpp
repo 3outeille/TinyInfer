@@ -16,30 +16,30 @@ namespace io{
     /**
      * Load 1-d tensor from the disk
      * @param weight_file: the name of the file to be loaded
-     * @return Eigen::Tensor<float, 1>
+     * @return Eigen::Tensor<float, 1,  Eigen::RowMajor>
      */
-    Eigen::Tensor<float, 1> load_kernel_weight_1d(std::string weight_file);
+    Eigen::Tensor<float, 1,  Eigen::RowMajor> load_kernel_weight_1d(std::string weight_file);
 
     /**
      * Load 2-d tensor from the disk
      * @param weight_file: the name of the file to be loaded
-     * @return Eigen::Tensor<float, 1>
+     * @return Eigen::Tensor<float, 1,  Eigen::RowMajor>
      */
-    Eigen::Tensor<float, 2> load_kernel_weight_2d(std::string weight_file);
+    Eigen::Tensor<float, 2,  Eigen::RowMajor> load_kernel_weight_2d(std::string weight_file);
 
     /**
      * Load 3-d tensor from the disk
      * @param weight_file: the name of the file to be loaded
-     * @return Eigen::Tensor<float, 1>
+     * @return Eigen::Tensor<float, 1,  Eigen::RowMajor>
      */
-    Eigen::Tensor<float, 3> load_kernel_weight_3d(std::string weight_file);
+    Eigen::Tensor<float, 3,  Eigen::RowMajor> load_kernel_weight_3d(std::string weight_file);
 
     /**
      * Load 4-d tensor from the disk
      * @param weight_file: the name of the file to be loaded
-     * @return Eigen::Tensor<float, 1>
+     * @return Eigen::Tensor<float, 1,  Eigen::RowMajor>
      */
-    Eigen::Tensor<float, 4> load_kernel_weight_4d(std::string weight_file);
+    Eigen::Tensor<float, 4,  Eigen::RowMajor> load_kernel_weight_4d(std::string weight_file);
 }
 
 

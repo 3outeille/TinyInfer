@@ -1,5 +1,25 @@
-//
-// Created by ernest on 19-5-29.
-//
+#include "op/dense.hpp"
+#include "runtime/kernel/dense.hpp"
 
-#include "dense.hpp"
+namespace tinyinfer{
+    namespace op{
+        DenseOp::DenseOp(const std::shared_ptr<tinyinfer::Node> &arg)
+                : Op("dense", check_args_single_output({arg})) {
+            validate_and_infer();
+        }
+
+        void DenseOp::register_weight(const std::shared_ptr<tinyinfer::runtime::Tensor> &tensor) {
+            m_weights = tensor;
+        }
+
+        void DenseOp::register_bias(const std::shared_ptr<tinyinfer::runtime::Tensor> &tensor) {
+            m_bias = tensor;
+        }
+
+        void DenseOp::forward() {
+            this->get_outputs().at(0).set_tensor_ptr(
+                    runtime::kernel::Dense(this->m_weights, this->m_bias,
+                                           this->get_inputs().at(0).get_tensor_ptr()));
+        }
+    }
+}

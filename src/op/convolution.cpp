@@ -1,5 +1,5 @@
 #include "op/convolution.hpp"
-
+#include "runtime/kernel/convolution.hpp"
 
 namespace tinyinfer{
 namespace op{
@@ -16,10 +16,19 @@ namespace op{
         m_bias = tensor;
     }
 
-    void ConvOp::set_stride(int stride) {
-        m_stride = stride;
+    void ConvOp::set_stride_x(int stride) {
+        m_stride_x = stride;
     }
 
-    // TODO: implement forward()
+    void ConvOp::set_stride_y(int stride) {
+        m_stride_y = stride;
+    }
+
+    void ConvOp::forward() {
+        this->get_outputs().at(0).set_tensor_ptr(
+                runtime::kernel::Conv(this->m_weights, this->m_bias,
+                                       this->get_inputs().at(0).get_tensor_ptr(),
+                                       this->m_stride_x, this->m_stride_y));
+    }
 }
 }

@@ -68,6 +68,9 @@ target_link_libraries(sampletest TinyinferLib)
 add_executable(parser_test test/parserTest.cpp)
 target_link_libraries(parser_test TinyinferLib)
 
+add_executable(relu_test test/ReluTest.cpp)
+target_link_libraries(relu_test TinyinferLib)
+
 # and finally add dependency of the main target
 ADD_DEPENDENCIES(main proto_cache_target)
 
