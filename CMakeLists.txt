@@ -62,6 +62,9 @@ add_subdirectory(src)
 add_executable(main test/main.cpp)
 target_link_libraries(main TinyinferLib)
 
+add_executable(sampletest test/sampleTest.cpp)
+target_link_libraries(sampletest TinyinferLib)
+
 # and finally add dependency of the main target
 ADD_DEPENDENCIES(main proto_cache_target)
 
