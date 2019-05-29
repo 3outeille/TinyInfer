@@ -47,27 +47,6 @@ namespace tinyinfer {
          */
         void parse_nodes(const GraphDef& graph_def, const std::string& weights_dir);
 
-        /**
-         * Initial all nodes in graph_ by its op
-         * @param graph_def: The input graph from tensorflow (protobuf)
-         */
-        void init_nodes(const GraphDef& graph_def);
-
-        /**
-         * Build dependency for all nodes
-         */
-        void build_dependency(const GraphDef& graph_def);
-
-        void parse_single_node(const NodeDef& node_def);
-
-        void parse_input(const NodeDef& node_def);
-
-        /**
-         * Parse the dependency
-         * @param node_def
-         */
-        void parse_dep(const NodeDef &node_def);
-
         // ========================= Various Node Parsing =========================
         void parse_conv2d(const NodeDef& node_def, const std::string& weights_dir);
         void parse_dense(const NodeDef& node_def, const std::string& weights_dir);
