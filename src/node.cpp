@@ -11,7 +11,7 @@ Node::Node(const std::string& node_type)
 
 Node::~Node() {
   for (auto& input : m_inputs) {
-    input.get_out().remove(&input);
+    input.get_output().remove_input(&input);
   }
 }
 

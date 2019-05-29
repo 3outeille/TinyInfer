@@ -46,7 +46,7 @@ class Node : public std::enable_shared_from_this<Node> {
   size_t get_output_num() const { return m_outputs.size(); }
 
   // get nodes of providing input
-  std::shared_ptr<Node> get_argument(size_t index) const {
+  std::shared_ptr<Node> get_argument(size_t index) {
     return m_inputs.at(index).get_output().get_node();
   }
   NodeVector get_arguments() const;
