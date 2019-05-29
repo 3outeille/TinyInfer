@@ -9,6 +9,7 @@
 #define TENSOR_DATA_TYPE float
 
 namespace tinyinfer {
+namespace runtime {
 class Tensor {
  private:
   Shape m_shape;
@@ -23,9 +24,14 @@ class Tensor {
       m_tensor_rank4;
 
  public:
-  Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor> tensor);
-  Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 2, Eigen::RowMajor> tensor);
-  Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 3, Eigen::RowMajor> tensor);
-  Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> tensor);
+  Tensor(std::unique_ptr<Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor>> tensor);
+  Tensor(std::unique_ptr<Eigen::Tensor<TENSOR_DATA_TYPE, 2, Eigen::RowMajor>> tensor);
+  Tensor(std::unique_ptr<Eigen::Tensor<TENSOR_DATA_TYPE, 3, Eigen::RowMajor>> tensor);
+  Tensor(std::unique_ptr<Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor>> tensor);
+//   Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor>&& tensor);
+//   Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 2, Eigen::RowMajor>&& tensor);
+//   Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 3, Eigen::RowMajor>&& tensor);
+//   Tensor(Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor>&& tensor);
 };
+}  // namespace runtime
 }  // namespace tinyinfer
