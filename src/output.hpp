@@ -13,12 +13,11 @@ class Output {
  protected:
   Node* m_node;
   size_t m_index;
-  std::shared_ptr<runtime::Tensor> m_tensor;
+  std::shared_ptr<runtime::Tensor> m_tensor = nullptr;
   std::set<Input*> m_inputs;
 
  public:
-  Output(Node* node, size_t index,
-         const std::shared_ptr<runtime::Tensor>& tensor);
+  Output(Node* node, size_t index);
 
   std::shared_ptr<Node> get_node() const;
   size_t get_index() const { return m_index; }

@@ -3,9 +3,7 @@
 
 using namespace tinyinfer;
 
-Output::Output(Node* node, size_t index,
-               const std::shared_ptr<runtime::Tensor>& tensor)
-    : m_node(node), m_index(index), m_tensor(tensor) {}
+Output::Output(Node* node, size_t index) : m_node(node), m_index(index) {}
 
 std::shared_ptr<Node> Output::get_node() const {
   return m_node->shared_from_this();
