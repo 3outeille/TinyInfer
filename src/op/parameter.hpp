@@ -15,4 +15,5 @@ class Parameter : public op::Op {
   void virtual forward();
 };
 }
+using ParameterVector = std::vector<std::shared_ptr<op::Parameter>>;
 }

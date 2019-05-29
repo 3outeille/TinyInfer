@@ -1,10 +1,10 @@
 #pragma once
 
+#include <atomic>
 #include <deque>
 #include <memory>
 #include <string>
 #include <vector>
-#include <atomic>
 
 #include "input.hpp"
 #include "output.hpp"
@@ -51,5 +51,6 @@ class Node : public std::enable_shared_from_this<Node> {
   std::deque<Output>& get_outputs() { return m_outputs; }
 
   const NodeVector& check_args_single_output(const NodeVector& args);
+  void virtual forward() = 0;
 };
 }  // namespace tinyinfer
