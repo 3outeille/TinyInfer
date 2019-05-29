@@ -16,10 +16,17 @@ namespace op{
         m_bias = tensor;
     }
 
-    void ConvOp::set_stride(int stride) {
-        m_stride = stride;
+    void ConvOp::set_stride_x(int stride) {
+        m_stride_x = stride;
+    }
+
+    void ConvOp::set_stride_y(int stride) {
+        m_stride_y = stride;
     }
 
     // TODO: implement forward()
+    void ConvOp::forward() {
+
+    }
 }
 }

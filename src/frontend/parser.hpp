@@ -23,6 +23,7 @@ namespace tinyinfer {
     class Parser {
     public:
         Parser();
+        ~Parser();
 
         /**
          * Do the parsing

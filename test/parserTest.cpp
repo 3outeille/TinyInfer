@@ -3,7 +3,7 @@
  */
 
 #include <iostream>
-#include "frontend/parser.h"
+#include "frontend/parser.hpp"
 
 int main(int argc, const char * argv[]){
     std::string input_pb = "/home/ernest/cs133_proj/data/model.pb";
