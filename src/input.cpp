@@ -1,5 +1,6 @@
 #include "input.hpp"
 #include "output.hpp"
+#include "node.hpp"
 
 using namespace tinyinfer;
 
