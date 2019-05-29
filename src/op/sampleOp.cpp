@@ -9,7 +9,7 @@ op::AddConstant::AddConstant(const std::shared_ptr<Node>& arg)
   validate_and_infer();
 }
 
-void op::AddConstant::register_weight(std::shared_ptr<runtime::Tensor> tensor) {
+void op::AddConstant::register_weight(const std::shared_ptr<runtime::Tensor>& tensor) {
   m_weights = tensor;
 }
 

@@ -12,7 +12,7 @@ class AddConstant : public Op {
 
  public:
   AddConstant(const std::shared_ptr<Node>& arg);
-  void register_weight(std::shared_ptr<runtime::Tensor> tensor);
+  void register_weight(const std::shared_ptr<runtime::Tensor>& tensor);
   void virtual forward();
 };
 }
