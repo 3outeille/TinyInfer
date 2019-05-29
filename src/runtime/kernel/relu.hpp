@@ -24,13 +24,16 @@ std::shared_ptr<runtime::Tensor> Relu(std::shared_ptr<runtime::Tensor> input) {
 
     if (input->get_rank() == 2) {
         Tensor2f _input = input->get_tensor_r2_ptr();
-        return std::make_shared<runtime::Tensor>(_input.cwiseMax(static_cast<float>(0)));
+        Tensor2f _output = _input.cwiseMax(static_cast<float>(0));
+        return std::make_shared<runtime::Tensor>(_output);
     } else if (input->get_rank() == 3) {
         Tensor3f _input = input->get_tensor_r3_ptr();
-        return std::make_shared<runtime::Tensor>(_input.cwiseMax(static_cast<float>(0)));
-    }else if (input->get_rank() == 4) {
+        Tensor3f _output = _input.cwiseMax(static_cast<float>(0));
+        return std::make_shared<runtime::Tensor>(_output);
+    } else if (input->get_rank() == 4) {
         Tensor4f _input = input->get_tensor_r4_ptr();
-        return std::make_shared<runtime::Tensor>(_input.cwiseMax(static_cast<float>(0)));
+        Tensor4f _output = _input.cwiseMax(static_cast<float>(0));
+        return std::make_shared<runtime::Tensor>(_output);
     }
 
 }
