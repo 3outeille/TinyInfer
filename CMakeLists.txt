@@ -68,6 +68,9 @@ target_link_libraries(infer TinyinferLib)
 add_executable(sampletest test/sampleTest.cpp)
 target_link_libraries(sampletest TinyinferLib)
 
+add_executable(functionTest test/functionTest.cpp)
+target_link_libraries(functionTest TinyinferLib)
+
 add_executable(parser_test test/parserTest.cpp)
 target_link_libraries(parser_test TinyinferLib)
 
@@ -87,8 +90,8 @@ target_link_libraries(maxpool_test TinyinferLib)
 ADD_DEPENDENCIES(main proto_cache_target)
 
 ## unit test
-#file(GLOB UTIL_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/infer/utils/*)
-#include_directories(${PROJECT_SOURCE_DIR}/infer/utils)
+file(GLOB UTIL_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/infer/utils/*)
+include_directories(${PROJECT_SOURCE_DIR}/infer/utils)
 #
 #add_executable( test_relu1 ${PROJECT_SOURCE_DIR}/test/test_relu1.cpp ${UTIL_SRC})
 #target_link_libraries( test_relu1 Eigen3::Eigen )
