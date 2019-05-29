@@ -46,7 +46,7 @@ NodeVector Node::get_users() const {
   }
 }
 
-const NodeVector& check_args_single_output(const NodeVector& args) {
+const NodeVector& Node::check_args_single_output(const NodeVector& args) {
   for (auto arg : args) {
     assert(arg->get_output_num() == 1);
   }
