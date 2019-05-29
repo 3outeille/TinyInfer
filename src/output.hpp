@@ -26,13 +26,8 @@ class Output {
 
   void add_input(Input* input);
   void remove_input(Input* input);
-  
+
   const std::set<Input*>& get_inputs() const { return m_inputs; }
   const Shape& get_shape() const;
-
- private:
-  Output(const Output&) = delete;
-  Output(Output&&) = delete;
-  Output& operator=(const Output&) = delete;
 };
 }
