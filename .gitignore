@@ -3,3 +3,4 @@ data/
 build/
 .idea/
 cmake-build-debug/
+.vscode/
