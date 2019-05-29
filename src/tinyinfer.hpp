@@ -13,5 +13,7 @@
 #include "op/relu.hpp"
 #include "op/sampleOp.hpp"
 #include "op/softmax.hpp"
+#include "op/dense.hpp"
+#include "op/maxpooling_2d.hpp"
 
 #include "runtime/tensor.hpp"
