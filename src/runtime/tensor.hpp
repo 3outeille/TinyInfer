@@ -24,6 +24,7 @@ class Tensor {
       m_tensor_rank4;
 
  public:
+  // Todo: initialize the m_shape while constructing
   Tensor(std::unique_ptr<Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor>>
              tensor);
   Tensor(std::unique_ptr<Eigen::Tensor<TENSOR_DATA_TYPE, 2, Eigen::RowMajor>>
