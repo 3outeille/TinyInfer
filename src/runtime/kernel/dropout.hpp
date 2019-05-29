@@ -21,12 +21,16 @@ typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
  * @param _input
  */
 std::shared_ptr<runtime::Tensor> Dropout(std::shared_ptr<runtime::Tensor> input) {
-    if (input->get_rank() == 2)
-        return std::make_shared<runtime::Tensor>(input->get_tensor_r2_ptr());
-    else if (input->get_rank() == 3)
-        return std::make_shared<runtime::Tensor>(input->get_tensor_r3_ptr());
-    else if (input->get_rank() == 4)
-        return std::make_shared<runtime::Tensor>(input->get_tensor_r4_ptr());
+    if (input->get_rank() == 2) {
+        Tensor2f _output = input->get_tensor_r2_ptr();
+        return std::make_shared<runtime::Tensor>(_output);
+    } else if (input->get_rank() == 3) {
+        Tensor3f _output = input->get_tensor_r3_ptr();
+        return std::make_shared<runtime::Tensor>(_output);
+    } else if (input->get_rank() == 4) {
+        Tensor4f _output = input->get_tensor_r4_ptr();
+        return std::make_shared<runtime::Tensor>(_output);
+    }
 }
 }
 }
