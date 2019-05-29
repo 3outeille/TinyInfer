@@ -1,7 +1,5 @@
-#include "dropout.hpp"
-
-#include "op/convolution.hpp"
-
+#include "op/dropout.hpp"
+#include "runtime/kernel/dropout.hpp"
 
 namespace tinyinfer{
     namespace op{
@@ -10,9 +8,9 @@ namespace tinyinfer{
             validate_and_infer();
         }
 
-        // TODO: implement forward()
         void DropoutOp::forward(){
-
+            this->get_outputs().at(0).set_tensor_ptr(
+                    runtime::kernel::Dropout(this->get_inputs().at(0).get_tensor_ptr()));
         }
     }
 }

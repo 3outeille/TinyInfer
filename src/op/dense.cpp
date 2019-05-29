@@ -1,5 +1,5 @@
 #include "op/dense.hpp"
-
+#include "runtime/kernel/dense.hpp"
 
 namespace tinyinfer{
     namespace op{
@@ -16,9 +16,10 @@ namespace tinyinfer{
             m_bias = tensor;
         }
 
-        // TODO: implement forward()
         void DenseOp::forward() {
-
+            this->get_outputs().at(0).set_tensor_ptr(
+                    runtime::kernel::Dense(this->m_weights, this->m_bias,
+                                           this->get_inputs().at(0).get_tensor_ptr()));
         }
     }
 }

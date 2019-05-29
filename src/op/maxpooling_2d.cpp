@@ -1,4 +1,5 @@
-#include "maxpooling_2d.hpp"
+#include "op/maxpooling_2d.hpp"
+#include "runtime/kernel/maxpool.hpp"
 
 namespace tinyinfer{
     namespace op{
@@ -23,9 +24,11 @@ namespace tinyinfer{
             m_stride_y = y;
         }
 
-        // TODO: implement forward()
         void Maxpooling2dOp::forward() {
-
+            this->get_outputs().at(0).set_tensor_ptr(
+                    runtime::kernel::Maxpool(this->get_inputs().at(0).get_tensor_ptr(),
+                                             this->m_kernel_x, this->m_kernel_y,
+                                             this->m_stride_x, this->m_stride_y));
         }
     }
 }

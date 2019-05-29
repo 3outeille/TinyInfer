@@ -1,5 +1,5 @@
 #include "op/softmax.hpp"
-
+#include "runtime/kernel/softmax.hpp"
 
 namespace tinyinfer{
     namespace op{
@@ -8,9 +8,9 @@ namespace tinyinfer{
             validate_and_infer();
         }
 
-        // TODO: implement forward()
         void SoftmaxOp::forward() {
-
+            this->get_outputs().at(0).set_tensor_ptr(
+                    runtime::kernel::Softmax(this->get_inputs().at(0).get_tensor_ptr()));
         }
     }
 }
