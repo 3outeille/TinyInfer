@@ -5,7 +5,7 @@
 #include "io.hpp"
 
 namespace io{
-    Eigen::Tensor<float, 1> load_kernel_weight_1d(std::string weight_file){
+    Eigen::Tensor<float, 1,  Eigen::RowMajor> load_kernel_weight_1d(std::string weight_file){
         // decode json file (read in)
         std::string encoded_json;
         std::ifstream input(weight_file);
@@ -26,7 +26,7 @@ namespace io{
         }
 
         // Loading tensor
-        Eigen::Tensor<float, 1> result((int)tensor_shape[0]);
+        Eigen::Tensor<float, 1,  Eigen::RowMajor> result((int)tensor_shape[0]);
         result.setZero();
         size_t counter = 0;
         for (int i = 0; i < tensor_shape[0]; i++){
@@ -37,7 +37,7 @@ namespace io{
         return result;
     }
 
-    Eigen::Tensor<float, 2> load_kernel_weight_2d(std::string weight_file){
+    Eigen::Tensor<float, 2,  Eigen::RowMajor> load_kernel_weight_2d(std::string weight_file){
         // decode json file (read in)
         std::string encoded_json;
         std::ifstream input(weight_file);
@@ -58,7 +58,7 @@ namespace io{
         }
 
         // Loading tensor
-        Eigen::Tensor<float, 2> result(tensor_shape[0],tensor_shape[1]);
+        Eigen::Tensor<float, 2,  Eigen::RowMajor> result(tensor_shape[0],tensor_shape[1]);
         result.setZero();
         size_t counter = 0;
         for (int i = 0; i < tensor_shape[0]; i++){
@@ -71,7 +71,7 @@ namespace io{
         return result;
     }
 
-    Eigen::Tensor<float, 3> load_kernel_weight_3d(std::string weight_file){
+    Eigen::Tensor<float, 3,  Eigen::RowMajor> load_kernel_weight_3d(std::string weight_file){
         // decode json file (read in)
         std::string encoded_json;
         std::ifstream input(weight_file);
@@ -92,7 +92,7 @@ namespace io{
         }
 
         // Loading tensor
-        Eigen::Tensor<float, 3> result(tensor_shape[0],tensor_shape[1],tensor_shape[2]);
+        Eigen::Tensor<float, 3,  Eigen::RowMajor> result(tensor_shape[0],tensor_shape[1],tensor_shape[2]);
         result.setZero();
         size_t counter = 0;
         for (int i = 0; i < tensor_shape[0]; i++){
@@ -107,7 +107,7 @@ namespace io{
         return result;
     }
 
-    Eigen::Tensor<float, 4> load_kernel_weight_4d(std::string weight_file){
+    Eigen::Tensor<float, 4,  Eigen::RowMajor> load_kernel_weight_4d(std::string weight_file){
         // decode json file (read in)
         std::string encoded_json;
         std::ifstream input(weight_file);
@@ -128,7 +128,7 @@ namespace io{
         }
 
         // Loading tensor
-        Eigen::Tensor<float, 4> result(tensor_shape[0],tensor_shape[1],tensor_shape[2],tensor_shape[3]);
+        Eigen::Tensor<float, 4,  Eigen::RowMajor> result(tensor_shape[0],tensor_shape[1],tensor_shape[2],tensor_shape[3]);
         result.setZero();
         size_t counter = 0;
         for (int i = 0; i < tensor_shape[0]; i++){
