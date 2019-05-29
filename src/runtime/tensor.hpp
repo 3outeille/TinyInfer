@@ -27,6 +27,8 @@ class Tensor {
 
   const Shape& get_shape() const { return m_shape; }
 
+  const size_t& get_rank() const { return m_rank; }
+
   const Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor>&
   get_tensor_r1_ptr() {
     return m_tensor_rank1;

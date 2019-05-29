@@ -7,14 +7,14 @@
 
 #include "runtime/tensor.hpp"
 
-typedef typename Eigen::Tensor<float, 1> Tensor1f;
-typedef typename Eigen::Tensor<float, 2> Tensor2f;
-typedef typename Eigen::Tensor<float, 3> Tensor3f;
-typedef typename Eigen::Tensor<float, 4> Tensor4f;
-
 namespace tinyinfer {
 namespace runtime {
 namespace kernel {
+
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor> Tensor1f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 2, Eigen::RowMajor> Tensor2f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 3, Eigen::RowMajor> Tensor3f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
 
 /**
  * @brief max pooling layer
@@ -24,7 +24,9 @@ namespace kernel {
  * @param stride_row
  * @param stride_col
  */
-Tensor4f Maxpool(Tensor4f _input, int window_row, int window_col, int stride_row, int stride_col) {
+std::shared_ptr<runtime::Tensor> Maxpool(std::shared_ptr<runtime::Tensor> input,
+            int window_row, int window_col, int stride_row, int stride_col) {
+    Tensor4f _input = input->get_tensor_r4_ptr();
     Tensor4f _output = Tensor4f(_input.dimension(0), ceil(_input.dimension(1) / stride_row),
                                 ceil(_input.dimension(2) / stride_col), _input.dimension(3)); /// return value
 
@@ -51,7 +53,7 @@ Tensor4f Maxpool(Tensor4f _input, int window_row, int window_col, int stride_row
         }
     }
 
-    return _output;
+    return std::make_shared<runtime::Tensor>(_output);
 }
 }
 }

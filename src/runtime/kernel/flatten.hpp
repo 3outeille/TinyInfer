@@ -7,20 +7,21 @@
 
 #include "runtime/tensor.hpp"
 
-typedef typename Eigen::Tensor<float, 1> Tensor1f;
-typedef typename Eigen::Tensor<float, 2> Tensor2f;
-typedef typename Eigen::Tensor<float, 3> Tensor3f;
-typedef typename Eigen::Tensor<float, 4> Tensor4f;
-
 namespace tinyinfer {
 namespace runtime {
 namespace kernel {
+
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor> Tensor1f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 2, Eigen::RowMajor> Tensor2f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 3, Eigen::RowMajor> Tensor3f;
+typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
 
 /**
  * @brief flatten layer
  * @param _input
  */
-Tensor2f Flatten(Tensor4f _input) {
+std::shared_ptr<runtime::Tensor> Flatten(std::shared_ptr<runtime::Tensor> input) {
+    Tensor4f _input = input->get_tensor_r4_ptr();
     Tensor2f _output = Tensor2f(_input.dimension(0),
             _input.dimension(1) * _input.dimension(2) * _input.dimension(3)); /// return value
 
@@ -37,7 +38,7 @@ Tensor2f Flatten(Tensor4f _input) {
         }
     }
 
-    return _output;
+    return std::make_shared<runtime::Tensor>(_output);
 }
 }
 }
