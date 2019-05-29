@@ -3,6 +3,8 @@
 //
 
 #include <tinyinfer.hpp>
+#include <dropout.hpp>
+#include <flatten.hpp>
 #include "parser.h"
 
 namespace tinyinfer {
@@ -74,6 +76,13 @@ namespace tinyinfer {
             }
             else if (node_op == "MaxPool"){
                 parse_maxpooling2d(node);
+            }
+            else if ((node_op == "Switch") && (node.name().find("cond/mul/Switch") != std::string::npos)){
+                // Dropout
+                parse_dropout(node);
+            }
+            else if (node_op == "Reshape"){
+                parse_flatten(node);
             }
         }
     }
@@ -150,16 +159,50 @@ namespace tinyinfer {
         // set attr
         auto node_attr = node_def.attr();
         auto ksize = node_attr.operator[]("ksize");
-        auto x = ksize.list().i(1);
-        new_node->set_kernel_x(x);
-        std::cout << ksize.list().i(1) << std::endl;
-        std::cout << ksize.list().i(2) << std::endl;
-        std::cout << ksize.list().i(3) << std::endl;
+        int kernel_x = ksize.list().i(1);
+        int kernel_y = ksize.list().i(2);
+        new_node->set_kernel_x(kernel_x);
+        new_node->set_kernel_x(kernel_y);
 
+        auto strides = node_attr.operator[]("strides");
+        int stride_x = strides.list().i(1);
+        int stride_y = strides.list().i(2);
+        new_node->set_stride_x(stride_x);
+        new_node->set_stride_y(stride_y);
+    }
 
-//        std::cout << ksize << std::endl;
+    void Parser::parse_dropout(const tensorflow::NodeDef &node_def) {
+        std::string node_name = parse_node_name(node_def.name())[0];
+        auto inputs = parse_node_inputs(node_def);
 
-        auto debug = true;
+        if (inputs.size() != 1){
+            // assert one input
+            throw std::runtime_error("Dense only accept one input!");
+        }
+
+        // get input node
+        std::shared_ptr<Node> input_node = get_input_node(inputs[0]);
+
+        // create node and set attrs
+        auto new_node = std::make_shared<op::DropoutOp>(input_node);
+        m_nodes.insert(std::make_pair(node_name, new_node));
+    }
+
+    void Parser::parse_flatten(const tensorflow::NodeDef &node_def) {
+        std::string node_name = parse_node_name(node_def.name())[0];
+        auto inputs = parse_node_inputs(node_def);
+
+        if (inputs.size() != 1){
+            // assert one input
+            throw std::runtime_error("Dense only accept one input!");
+        }
+
+        // get input node
+        std::shared_ptr<Node> input_node = get_input_node(inputs[0]);
+
+        // create node and set attrs
+        auto new_node = std::make_shared<op::FlattenOp>(input_node);
+        m_nodes.insert(std::make_pair(node_name, new_node));
     }
 
     std::vector<std::string> Parser::parse_node_inputs(const NodeDef &node_def) {
