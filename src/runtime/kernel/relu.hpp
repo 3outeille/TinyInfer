@@ -35,6 +35,9 @@ std::shared_ptr<runtime::Tensor> Relu(std::shared_ptr<runtime::Tensor> input) {
         Tensor4f _output = _input.cwiseMax(static_cast<float>(0));
         return std::make_shared<runtime::Tensor>(_output);
     }
+    else{
+        throw std::runtime_error("Relu does not support 1-d tensor");
+    }
 
 }
 }

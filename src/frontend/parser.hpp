@@ -34,6 +34,11 @@ namespace tinyinfer {
          */
         std::vector<std::shared_ptr<Node>> parse(const std::string &filename, const std::string &weights_dir);
 
+        /**
+         * Get input node
+         */
+        std::shared_ptr<op::Parameter> get_input();
+
     private:
         // ============== Helper Functions =============
         /**
@@ -96,6 +101,7 @@ namespace tinyinfer {
         // the input tensor
         std::string m_input_name;
         std::shared_ptr<Node> m_input_node;
+        std::shared_ptr<op::Parameter> m_input_node_param;
         // a mapping from node_name to the actual node
         std::map<std::string, std::shared_ptr<Node>> m_nodes;
         // each node should have one activation nodes

@@ -29,9 +29,9 @@ const std::shared_ptr<runtime::Tensor>Conv(const std::shared_ptr<runtime::Tensor
                                             const std::shared_ptr<runtime::Tensor> bias,
                                             const std::shared_ptr<runtime::Tensor> input,
                                             int stride_row, int stride_col) {
-    Tensor4f _kernel = kernel->get_tensor_r2_ptr();
+    Tensor4f _kernel = kernel->get_tensor_r4_ptr();
     Tensor1f _bias = bias->get_tensor_r1_ptr();
-    Tensor4f _input = input->get_tensor_r2_ptr();
+    Tensor4f _input = input->get_tensor_r4_ptr();
 
     long _output_row = ceil((float)(_input.dimension(1) - _kernel.dimension(0)) / stride_row) + 1;
     long _output_col = ceil((float)(_input.dimension(2) - _kernel.dimension(1)) / stride_col) + 1;

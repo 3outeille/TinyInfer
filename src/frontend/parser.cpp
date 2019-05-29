@@ -9,11 +9,15 @@
 
 namespace tinyinfer {
 
-    Parser::Parser(): m_nodes(), m_activations(), m_input_name(), m_input_node() {
+    Parser::Parser(): m_nodes(), m_activations(), m_input_name(), m_input_node(), m_input_node_param() {
 
     }
 
     Parser::~Parser() {
+    }
+
+    std::shared_ptr<op::Parameter> Parser::get_input() {
+        return m_input_node_param;
     }
 
     std::vector<std::shared_ptr<Node>> Parser::parse(const std::string &filename, const std::string &weights_dir) {
@@ -24,6 +28,7 @@ namespace tinyinfer {
         m_activations.clear();
 
         m_results.clear();
+        m_input_node_param = nullptr;
 
         // start reading
         std::ifstream input(filename);
@@ -65,7 +70,8 @@ namespace tinyinfer {
             if (node_op == "Placeholder"){          // input (placeholder)
                 std::string node_name = parse_node_name(node.name())[0];
                 m_input_name = node_name;
-                m_input_node = std::make_shared<op::Parameter>();
+                m_input_node_param = std::make_shared<op::Parameter>();
+                m_input_node = m_input_node_param;
                 m_results.push_back(m_input_node);
 //                m_nodes.insert(std::make_pair(node_name, new_node));
 

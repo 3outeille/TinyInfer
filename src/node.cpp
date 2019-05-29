@@ -21,9 +21,9 @@ Node::Node(const std::string& node_type, const NodeVector& arguments)
 }
 
 Node::~Node() {
-  for (auto& input : m_inputs) {
-    input.get_output().remove_input(&input);
-  }
+//  for (auto& input : m_inputs) {
+//    input.get_output().remove_input(&input);
+//  }
 }
 
 std::shared_ptr<Node> Node::get_argument(size_t index) {
