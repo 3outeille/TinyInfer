@@ -74,6 +74,12 @@ target_link_libraries(relu_test TinyinferLib)
 add_executable(flatten_test test/FlattenTest.cpp)
 target_link_libraries(flatten_test TinyinferLib)
 
+add_executable(dense_test test/DenseTest.cpp)
+target_link_libraries(dense_test TinyinferLib)
+
+add_executable(maxpool_test test/MaxPoolTest.cpp)
+target_link_libraries(maxpool_test TinyinferLib)
+
 # and finally add dependency of the main target
 ADD_DEPENDENCIES(main proto_cache_target)
 

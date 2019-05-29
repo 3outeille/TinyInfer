@@ -27,8 +27,8 @@ typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
 std::shared_ptr<runtime::Tensor> Maxpool(std::shared_ptr<runtime::Tensor> input,
             int window_row, int window_col, int stride_row, int stride_col) {
     Tensor4f _input = input->get_tensor_r4_ptr();
-    Tensor4f _output = Tensor4f(_input.dimension(0), ceil(_input.dimension(1) / stride_row),
-                                ceil(_input.dimension(2) / stride_col), _input.dimension(3)); /// return value
+    Tensor4f _output = Tensor4f(_input.dimension(0), ceil((float)_input.dimension(1) / stride_row),
+                                ceil((float)_input.dimension(2) / stride_col), _input.dimension(3)); /// return value
 
     for (auto i = 0; i < _output.dimension(0); ++i) {
         for (auto l = 0; l < _output.dimension(3); ++l) {
