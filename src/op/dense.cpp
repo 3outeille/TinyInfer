@@ -8,6 +8,12 @@ namespace tinyinfer{
             validate_and_infer();
         }
 
+        void DenseOp::register_params(const std::shared_ptr<tinyinfer::runtime::Tensor> &weights,
+                                      const std::shared_ptr<tinyinfer::runtime::Tensor> &bias) {
+            m_weights = weights;
+            m_bias = bias;
+        }
+
         void DenseOp::register_weight(const std::shared_ptr<tinyinfer::runtime::Tensor> &tensor) {
             m_weights = tensor;
         }

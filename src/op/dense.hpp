@@ -14,6 +14,9 @@ namespace tinyinfer {
 
         public:
             DenseOp(const std::shared_ptr<Node>& arg);
+
+            void register_params(const std::shared_ptr<runtime::Tensor>& weights, const std::shared_ptr<runtime::Tensor>& bias);
+
             void register_weight(const std::shared_ptr<runtime::Tensor>& tensor);
             void register_bias(const std::shared_ptr<runtime::Tensor>& tensor);
             void virtual forward();

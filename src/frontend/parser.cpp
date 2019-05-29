@@ -30,28 +30,9 @@ namespace tinyinfer {
 
         tensorflow::GraphDef graph_def;
         if (graph_def.ParseFromIstream(&input)){
-//            std::cout << "Read Success" << std::endl;
-
-            // go through the graph (list of nodes)
-//        for (size_t i = 0; i < graph_def.node_size(); i++){
-//            const tensorflow::NodeDef & node = graph_def.node(i);
-//
-//
-//        }
             // initialize all node with node op and names
             parse_nodes(graph_def, weights_dir);
 
-
-//            std::cout << "End of parsing iter 1" << std::endl;
-//            std::cout << " ============================================= " << std::endl;
-//            std::cout << " ============================================= " << std::endl;
-
-            // For test only
-            // Print out node info for validtion
-//            for (auto p : m_nodes){
-//                p.second->print_debug();
-//                std::cout << "----------------------------" << std::endl;
-//            }
 
             // Print out parsing reults for debugging
             for (auto v : m_results){
@@ -62,7 +43,6 @@ namespace tinyinfer {
                 std::cout << "---------------------" << std::endl;
             }
 
-            auto debug = true;
             return m_results;
         }
         else{
@@ -141,11 +121,8 @@ namespace tinyinfer {
         // TODO: fix this
         // ERROR 1: Tensor::~Tensor() is raising error (m_weights in ConvOP)
         auto weights = std::make_shared<runtime::Tensor>(io::load_kernel_weight_4d(weights_dir + "/" + node_name + "_kernel.kw"));
-        new_node->register_weight(weights);
-
-
-//        auto bias = std::make_shared<runtime::Tensor>(io::load_kernel_weight_1d(weights_dir + "/" + node_name + "_bias.kw"));
-//        new_node->register_params(weights, bias, tmp_stride[0], tmp_stride[1]);
+        auto bias = std::make_shared<runtime::Tensor>(io::load_kernel_weight_1d(weights_dir + "/" + node_name + "_bias.kw"));
+        new_node->register_params(weights, bias, tmp_stride[0], tmp_stride[1]);
     }
 
     void Parser::parse_relu(const tensorflow::NodeDef &node_def, const std::string& weights_dir) {
@@ -196,6 +173,9 @@ namespace tinyinfer {
         m_results.push_back(new_node);
 
         // TODO: set attr
+        auto weights = std::make_shared<runtime::Tensor>(io::load_kernel_weight_2d(weights_dir + "/" + node_name + "_kernel.kw"));
+        auto bias = std::make_shared<runtime::Tensor>(io::load_kernel_weight_1d(weights_dir + "/" + node_name + "_bias.kw"));
+        new_node->register_params(weights, bias);
     }
 
     void Parser::parse_maxpooling2d(const tensorflow::NodeDef &node_def, const std::string& weights_dir) {
@@ -220,14 +200,16 @@ namespace tinyinfer {
         auto ksize = node_attr.operator[]("ksize");
         int kernel_x = ksize.list().i(1);
         int kernel_y = ksize.list().i(2);
-        new_node->set_kernel_x(kernel_x);
-        new_node->set_kernel_x(kernel_y);
+//        new_node->set_kernel_x(kernel_x);
+//        new_node->set_kernel_y(kernel_y);
 
         auto strides = node_attr.operator[]("strides");
         int stride_x = strides.list().i(1);
         int stride_y = strides.list().i(2);
-        new_node->set_stride_x(stride_x);
-        new_node->set_stride_y(stride_y);
+//        new_node->set_stride_x(stride_x);
+//        new_node->set_stride_y(stride_y);
+
+        new_node->register_params(kernel_x, kernel_y, stride_x, stride_y);
     }
 
     void Parser::parse_dropout(const tensorflow::NodeDef &node_def, const std::string& weights_dir) {

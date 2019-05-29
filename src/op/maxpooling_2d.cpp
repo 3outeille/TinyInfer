@@ -8,6 +8,13 @@ namespace tinyinfer{
             validate_and_infer();
         }
 
+        void Maxpooling2dOp::register_params(int kernel_x, int kernel_y, int stride_x, int stride_y) {
+            m_kernel_x = kernel_x;
+            m_kernel_y = kernel_y;
+            m_stride_x = stride_x;
+            m_stride_y = stride_y;
+        }
+
         void Maxpooling2dOp::set_kernel_x(int x) {
             m_kernel_x = x;
         }

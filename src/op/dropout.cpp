@@ -1,5 +1,5 @@
 #include "op/dropout.hpp"
-#include "runtime/kernel/dropout.hpp"
+#include "runtime/kernel/dropout_funct.hpp"
 
 namespace tinyinfer{
     namespace op{
