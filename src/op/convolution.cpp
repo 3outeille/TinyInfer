@@ -8,6 +8,14 @@ namespace op{
         validate_and_infer();
     }
 
+    void ConvOp::register_params(const std::shared_ptr<tinyinfer::runtime::Tensor> &weight,
+                                 const std::shared_ptr<tinyinfer::runtime::Tensor> &bias, int stride_x, int stride_y) {
+        m_weights = weight;
+        m_bias = bias;
+        m_stride_x = stride_x;
+        m_stride_y = stride_y;
+    }
+
     void ConvOp::register_weight(const std::shared_ptr<tinyinfer::runtime::Tensor> &tensor) {
         m_weights = tensor;
     }
