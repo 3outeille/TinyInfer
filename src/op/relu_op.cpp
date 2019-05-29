@@ -1,4 +1,4 @@
-#include "op/relu.hpp"
+#include "op/relu_op.hpp"
 #include "runtime/kernel/relu.hpp"
 
 namespace tinyinfer {

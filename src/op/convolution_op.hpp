@@ -16,6 +16,12 @@ namespace tinyinfer {
 
         public:
             ConvOp(const std::shared_ptr<Node>& arg);
+
+            void register_params(const std::shared_ptr<runtime::Tensor>& weight,
+                    const std::shared_ptr<runtime::Tensor>& bias,
+                    int stride_x,
+                    int stride_y);
+
             void register_weight(const std::shared_ptr<runtime::Tensor>& tensor);
             void register_bias(const std::shared_ptr<runtime::Tensor>& tensor);
             void set_stride_x(int stride);

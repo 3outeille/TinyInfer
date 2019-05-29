@@ -1,4 +1,4 @@
-#include "op/dense.hpp"
+#include "op/dense_op.hpp"
 #include "runtime/kernel/dense.hpp"
 
 namespace tinyinfer{
@@ -6,6 +6,12 @@ namespace tinyinfer{
         DenseOp::DenseOp(const std::shared_ptr<tinyinfer::Node> &arg)
                 : Op("dense", check_args_single_output({arg})) {
             validate_and_infer();
+        }
+
+        void DenseOp::register_params(const std::shared_ptr<tinyinfer::runtime::Tensor> &weights,
+                                      const std::shared_ptr<tinyinfer::runtime::Tensor> &bias) {
+            m_weights = weights;
+            m_bias = bias;
         }
 
         void DenseOp::register_weight(const std::shared_ptr<tinyinfer::runtime::Tensor> &tensor) {

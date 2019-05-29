@@ -1,4 +1,4 @@
-#include "op/maxpooling_2d.hpp"
+#include "op/maxpooling_2d_op.hpp"
 #include "runtime/kernel/maxpool.hpp"
 
 namespace tinyinfer{
@@ -6,6 +6,13 @@ namespace tinyinfer{
         Maxpooling2dOp::Maxpooling2dOp(const std::shared_ptr<tinyinfer::Node> &arg)
                 : Op("Maxpooling2dOp", check_args_single_output({arg})) {
             validate_and_infer();
+        }
+
+        void Maxpooling2dOp::register_params(int kernel_x, int kernel_y, int stride_x, int stride_y) {
+            m_kernel_x = kernel_x;
+            m_kernel_y = kernel_y;
+            m_stride_x = stride_x;
+            m_stride_y = stride_y;
         }
 
         void Maxpooling2dOp::set_kernel_x(int x) {
