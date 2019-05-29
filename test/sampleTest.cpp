@@ -1,8 +1,5 @@
-#include "../src/tinyinfer.hpp"
+#include "tinyinfer.hpp"
 
 using namespace tinyinfer;
 
-int main(int argc, const char * argv[]){
-
-    auto
-}
+int main(int argc, const char* argv[]) {}
