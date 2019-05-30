@@ -35,13 +35,13 @@ namespace tinyinfer {
 
 
             // Print out parsing reults for debugging
-            for (auto v : m_results) {
-                std::cout << v->get_name() << std::endl;
-                if (v->get_arguments().size() != 0) {
-                    std::cout << v->get_arguments()[0]->get_name() << std::endl;
-                }
-                std::cout << "---------------------" << std::endl;
-            }
+//            for (auto v : m_results) {
+//                std::cout << v->get_name() << std::endl;
+//                if (v->get_arguments().size() != 0) {
+//                    std::cout << v->get_arguments()[0]->get_name() << std::endl;
+//                }
+//                std::cout << "---------------------" << std::endl;
+//            }
 
             return m_results;
         } else {
