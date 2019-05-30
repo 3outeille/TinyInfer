@@ -1,9 +1,4 @@
-//
-// Created by ernest on 19-5-29.
-//
-
-#ifndef TINYINFER_PARSER_H
-#define TINYINFER_PARSER_H
+#pragma once
 
 #include "node.hpp"
 
@@ -16,6 +11,7 @@
 #include "tinyinfer.hpp"
 #include "io.hpp"
 #include "runtime/tensor.hpp"
+#include "frontend/parser_helper.hpp"
 
 
 namespace tinyinfer {
@@ -44,7 +40,6 @@ namespace tinyinfer {
         std::shared_ptr<op::Parameter> get_input();
 
     private:
-        // ============== Helper Functions =============
         /**
          * Parse all nodes in the input graph (protobuf)
          * @param graph_def: the input graph (protobuf)
@@ -103,28 +98,6 @@ namespace tinyinfer {
 
         // ======================= General Helper Functions =======================
         /**
-         * Parse the probobuf Nodedef for graph nodes (Like Conv2d, Flatten)
-         * @param node_def: the input Node (Protobuf)
-         * @return a list of input nodes' names
-         */
-        std::vector<std::string> parse_node_inputs(const NodeDef &node_def);
-
-
-        /**
-         * Parse the probobuf Nodedef for activation function nodes (Like Relu, Softmax)
-         * @param node_def: the input Node (Protobuf)
-         * @return a list of input nodes' names
-         */
-        std::vector<std::string> parse_activation_inputs(const NodeDef &node_def);
-
-        /**
-         * The name from Protobuf contains two parts node_name + "/" + "operation"
-         * e.g: conv2d_1/convolution, conv2d_1/kernel, conv2d_1/bias
-         * @return: vector of node attributions {node_name, operation}
-         */
-        std::vector<std::string> parse_node_name(const std::string& parse_node_name);
-
-        /**
          * Get the saved input node from the current name in the following order:
          * If the node_name is presented as input (Placeholder), return the input node
          * If the node_name is presented in m_activations, return m_activations[node_name]
@@ -134,8 +107,6 @@ namespace tinyinfer {
          */
         std::shared_ptr<Node> get_input_node(const std::string& node_name);
 
-        std::vector<int> get_ksize(const NodeDef & node_def);
-        std::vector<int> get_stride(const NodeDef & node_def);
         // ================== Attr =====================
         // the input tensor
         std::string m_input_name;
@@ -150,5 +121,3 @@ namespace tinyinfer {
     };
 
 }
-
-#endif //TINYINFER_PARSER_H

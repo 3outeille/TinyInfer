@@ -1,7 +1,3 @@
-//
-// Created by ernest on 19-5-29.
-//
-
 #include <tinyinfer.hpp>
 #include <dropout_op.hpp>
 #include <flatten_op.hpp>
@@ -67,7 +63,7 @@ namespace tinyinfer {
             // Note: node_name is guaranteed to be unique for each layer
             const std::string& node_op = node.op();
             if (node_op == "Placeholder"){          // input (placeholder)
-                std::string node_name = parse_node_name(node.name())[0];
+                std::string node_name = parser_helper::parse_node_name(node.name())[0];
                 m_input_name = node_name;
                 m_input_node = std::make_shared<op::Parameter>();
                 m_results.push_back(m_input_node);
@@ -100,8 +96,8 @@ namespace tinyinfer {
 
 
     void Parser::parse_conv2d(const tensorflow::NodeDef &node_def, const std::string& weights_dir) {
-        std::string node_name = parse_node_name(node_def.name())[0];
-        auto inputs = parse_node_inputs(node_def);
+        std::string node_name = parser_helper::parse_node_name(node_def.name())[0];
+        auto inputs = parser_helper::parse_node_inputs(node_def);
 
         if (inputs.size() != 1){
             // assert one input
@@ -118,11 +114,9 @@ namespace tinyinfer {
 
         // set attr
         // stride
-        auto tmp_stride = get_stride(node_def);
+        auto tmp_stride = parser_helper::get_stride(node_def);
 
         // load weights
-        // TODO: fix this
-        // ERROR 1: Tensor::~Tensor() is raising error (m_weights in ConvOP)
         auto weights = std::make_shared<runtime::Tensor>(io::load_kernel_weight_4d(weights_dir + "/" + node_name + "_kernel.kw"));
         auto bias = std::make_shared<runtime::Tensor>(io::load_kernel_weight_1d(weights_dir + "/" + node_name + "_bias.kw"));
         new_node->register_params(weights, bias, tmp_stride[0], tmp_stride[1]);
@@ -130,8 +124,8 @@ namespace tinyinfer {
 
     void Parser::parse_relu(const tensorflow::NodeDef &node_def, const std::string& weights_dir) {
         // make a new relu node
-        std::string node_name = parse_node_name(node_def.name())[0];
-        auto inputs = parse_activation_inputs(node_def);
+        std::string node_name = parser_helper::parse_node_name(node_def.name())[0];
+        auto inputs = parser_helper::parse_activation_inputs(node_def);
 
         if (inputs.size() != 1){
             // assert one input
@@ -145,8 +139,8 @@ namespace tinyinfer {
 
     void Parser::parse_softmax(const tensorflow::NodeDef &node_def, const std::string& weights_dir) {
         // make a new softmax node
-        std::string node_name = parse_node_name(node_def.name())[0];
-        auto inputs = parse_activation_inputs(node_def);
+        std::string node_name = parser_helper::parse_node_name(node_def.name())[0];
+        auto inputs = parser_helper::parse_activation_inputs(node_def);
 
         if (inputs.size() != 1){
             // assert one input
@@ -159,8 +153,8 @@ namespace tinyinfer {
     }
 
     void Parser::parse_dense(const tensorflow::NodeDef &node_def, const std::string& weights_dir) {
-        std::string node_name = parse_node_name(node_def.name())[0];
-        auto inputs = parse_node_inputs(node_def);
+        std::string node_name = parser_helper::parse_node_name(node_def.name())[0];
+        auto inputs = parser_helper::parse_node_inputs(node_def);
 
         if (inputs.size() != 1){
             // assert one input
@@ -182,8 +176,8 @@ namespace tinyinfer {
     }
 
     void Parser::parse_maxpooling2d(const tensorflow::NodeDef &node_def, const std::string& weights_dir) {
-        std::string node_name = parse_node_name(node_def.name())[0];
-        auto inputs = parse_node_inputs(node_def);
+        std::string node_name = parser_helper::parse_node_name(node_def.name())[0];
+        auto inputs = parser_helper::parse_node_inputs(node_def);
 
         if (inputs.size() != 1){
             // assert one input
@@ -212,8 +206,8 @@ namespace tinyinfer {
     }
 
     void Parser::parse_dropout(const tensorflow::NodeDef &node_def, const std::string& weights_dir) {
-        std::string node_name = parse_node_name(node_def.name())[0];
-        auto inputs = parse_node_inputs(node_def);
+        std::string node_name = parser_helper::parse_node_name(node_def.name())[0];
+        auto inputs = parser_helper::parse_node_inputs(node_def);
 
         if (inputs.size() != 1){
             // assert one input
@@ -230,8 +224,8 @@ namespace tinyinfer {
     }
 
     void Parser::parse_flatten(const tensorflow::NodeDef &node_def, const std::string& weights_dir) {
-        std::string node_name = parse_node_name(node_def.name())[0];
-        auto inputs = parse_node_inputs(node_def);
+        std::string node_name = parser_helper::parse_node_name(node_def.name())[0];
+        auto inputs = parser_helper::parse_node_inputs(node_def);
 
         if (inputs.size() != 1){
             // assert one input
@@ -247,43 +241,6 @@ namespace tinyinfer {
         m_results.push_back(new_node);
     }
 
-    std::vector<std::string> Parser::parse_node_inputs(const NodeDef &node_def) {
-        std::vector<std::string> results;
-
-        std::string node_name = parse_node_name(node_def.name())[0];
-
-        // if input is not self-contain (has the same name), it is an operation
-        for (int i = 0; i < node_def.input_size(); i++){
-            auto tmp = parse_node_name(node_def.input(i));
-            if (tmp.size() == 1){
-                // this is the input [the place holder]
-                results.push_back(tmp[0]);
-            }
-            else{
-                if (tmp[0] != node_name){
-                    // this is the input
-                    results.push_back(tmp[0]);
-                }
-            }
-        }
-
-        return results;
-    }
-
-    std::vector<std::string> Parser::parse_activation_inputs(const NodeDef &node_def) {
-        std::vector<std::string> results;
-
-        std::string node_name = parse_node_name(node_def.name())[0];
-
-        // if input is not self-contain (has the same name), it is an operation
-        for (int i = 0; i < node_def.input_size(); i++){
-            auto tmp = parse_node_name(node_def.input(i));
-            results.push_back(tmp[0]);
-        }
-
-        return results;
-    }
-
     std::shared_ptr<Node> Parser::get_input_node(const std::string& node_name){
         // if it is the input
         if (node_name == m_input_name){
@@ -297,40 +254,5 @@ namespace tinyinfer {
         else{
             return m_nodes[node_name];
         }
-    }
-
-    std::vector<std::string> Parser::parse_node_name(const std::string& parse_node_name) {
-        std::vector<std::string> results;
-        std::string delimiter = "/";
-        std::string input = parse_node_name;
-
-        size_t pos = 0;
-        std::string token;
-
-        if ((pos = input.find(delimiter)) != std::string::npos) {
-            token = input.substr(0, pos);
-            results.push_back(token);
-            input.erase(0, pos + delimiter.length());
-        }
-
-        results.push_back(input);
-
-        return results;
-    }
-
-    std::vector<int> Parser::get_ksize(const tensorflow::NodeDef &node_def) {
-        auto node_attr = node_def.attr();
-        auto ksize = node_attr.operator[]("ksize");
-        int kernel_x = ksize.list().i(1);
-        int kernel_y = ksize.list().i(2);
-        return {kernel_x, kernel_y};
-    }
-
-    std::vector<int> Parser::get_stride(const tensorflow::NodeDef &node_def) {
-        auto node_attr = node_def.attr();
-        auto strides = node_attr.operator[]("strides");
-        int stride_x = strides.list().i(1);
-        int stride_y = strides.list().i(2);
-        return {stride_x, stride_y};
     }
 }
