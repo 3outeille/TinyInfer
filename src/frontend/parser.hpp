@@ -19,7 +19,7 @@ namespace tinyinfer {
     using namespace tensorflow;
 
     /**
-     * Frontend parser for reading tensorflow model and construct the computation graph
+     * \brief Frontend parser for reading tensorflow model and construct the computation graph
      */
     class Parser {
     public:
