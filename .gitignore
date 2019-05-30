@@ -5,3 +5,6 @@ build/
 cmake-build-debug/
 .vscode/
 proto_built/
+
+latex/
+html/
