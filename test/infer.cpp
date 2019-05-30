@@ -12,15 +12,15 @@ using namespace tinyinfer;
 
 int main(int argc, const char * argv[]){
     // parse graph
-    std::string input_pb = "data/model.pb";
-    std::string tensor_weights_dir = "data/tensor_weights";
+    std::string input_pb = "/home/ernest/cs133_proj/data/model.pb";
+    std::string tensor_weights_dir = "/home/ernest/cs133_proj/data/tensor_weights";
 
     Parser parser;
     auto graph = parser.parse(input_pb, tensor_weights_dir);
 
     // load data
-    std::string input_tensor_fname = "data/io_data/input.tensor";
-    std::string expected_output_fname = "data/io_data/dense_2_output";
+    std::string input_tensor_fname = "/home/ernest/cs133_proj/data/io_data/input.tensor";
+    std::string expected_output_fname = "/home/ernest/cs133_proj/data/io_data/dense_2_output";
     runtime::Tensor input_tensor = io::load_kernel_weight_4d(input_tensor_fname);
 
     // fucntion
