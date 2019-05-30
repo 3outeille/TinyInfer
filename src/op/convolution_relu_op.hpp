@@ -22,8 +22,8 @@ namespace tinyinfer {
 
         public:
             /**
-             * Construct the node with input nodes
-             * @param arg: the input nodes
+             * Construct the node via a Conv2d node
+             * @param arg: the Conv2d nodes
              */
             ConvReluOp(const std::shared_ptr<Node>& arg);
 

@@ -1,8 +1,8 @@
-#include "pass/dropout_elimination.hpp"
+#include "pass/futile_elimination.hpp"
 
 using namespace tinyinfer;
 
-NodeVector pass::dropout_elimination(const NodeVector& nodes) {
+NodeVector pass::futile_elimination(const NodeVector& nodes) {
   NodeVector result;
   for (auto node : nodes) {
     if (node->get_description() == "Dropout") {
