@@ -86,6 +86,9 @@ target_link_libraries(dense_test TinyinferLib)
 add_executable(maxpool_test test/MaxPoolTest.cpp)
 target_link_libraries(maxpool_test TinyinferLib)
 
+add_executable(softmax_test test/SoftMaxTest.cpp)
+target_link_libraries(softmax_test TinyinferLib)
+
 # and finally add dependency of the main target
 ADD_DEPENDENCIES(main proto_cache_target)
 

@@ -23,6 +23,7 @@ typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
  * @param window_col
  * @param stride_row
  * @param stride_col
+ * @return a tensor after the max pooling layer
  */
 std::shared_ptr<runtime::Tensor> Maxpool(std::shared_ptr<runtime::Tensor> input,
             int window_row, int window_col, int stride_row, int stride_col) {

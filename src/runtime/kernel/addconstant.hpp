@@ -5,6 +5,12 @@
 namespace tinyinfer {
 namespace runtime {
 namespace kernel {
+/**
+ * @brief sample operation (addition operation)
+ * @param input
+ * @param constant
+ * @return a tensor after the addition operation
+ */
 std::shared_ptr<runtime::Tensor> addconstant(
     const std::shared_ptr<runtime::Tensor> input,
     const std::shared_ptr<runtime::Tensor> constant) {

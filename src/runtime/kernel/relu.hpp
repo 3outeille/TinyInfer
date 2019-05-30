@@ -19,6 +19,7 @@ typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
 /**
  * @brief relu layer
  * @param _input
+ * @return a tensor after the relu layer
  */
 std::shared_ptr<runtime::Tensor> Relu(std::shared_ptr<runtime::Tensor> input) {
 

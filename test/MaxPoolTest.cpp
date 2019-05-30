@@ -37,7 +37,7 @@ int main(int argc, const char* argv[]) {
   t_4d(0, 1, 2, 1) = -1;
   t_4d(1, 0, 2, 1) = 2;
   t_4d(1, 1, 2, 1) = 1.4;
-  
+
   input_node->register_input(std::make_shared<runtime::Tensor>(t_4d));
 
   auto sampleOp_node = std::make_shared<Maxpooling2dOp>(input_node);

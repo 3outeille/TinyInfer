@@ -21,6 +21,7 @@ typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
  * @param _kernel
  * @param _bias
  * @param _input
+ * @return a tensor after the dense layer
  */
 std::shared_ptr<runtime::Tensor> Dense(const std::shared_ptr<runtime::Tensor> kernel,
                                         const std::shared_ptr<runtime::Tensor> bias,
