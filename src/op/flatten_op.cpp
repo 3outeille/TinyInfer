@@ -1,4 +1,4 @@
-#include "op/flatten.hpp"
+#include "op/flatten_op.hpp"
 #include "runtime/kernel/flatten.hpp"
 
 namespace tinyinfer{

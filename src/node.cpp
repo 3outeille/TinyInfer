@@ -21,9 +21,9 @@ Node::Node(const std::string& node_type, const NodeVector& arguments)
 }
 
 Node::~Node() {
-  for (auto& input : m_inputs) {
-    input.get_output().remove_input(&input);
-  }
+//  for (auto& input : m_inputs) {
+//    input.get_output().remove_input(&input);
+//  }
 }
 
 std::shared_ptr<Node> Node::get_argument(size_t index) {
@@ -35,6 +35,8 @@ NodeVector Node::get_arguments() {
   for (auto& i : m_inputs) {
     result.push_back(i.get_output().get_node());
   }
+
+  return result;
 }
 
 NodeVector Node::get_users() const {
@@ -44,6 +46,8 @@ NodeVector Node::get_users() const {
       result.push_back(input->get_node());
     }
   }
+
+  return result;
 }
 
 const NodeVector& Node::check_args_single_output(const NodeVector& args) {

@@ -31,6 +31,9 @@ std::shared_ptr<runtime::Tensor> Dropout(std::shared_ptr<runtime::Tensor> input)
         Tensor4f _output = input->get_tensor_r4_ptr();
         return std::make_shared<runtime::Tensor>(_output);
     }
+    else{
+        throw std::runtime_error("Dropout can not be 1-d");
+    }
 }
 }
 }
