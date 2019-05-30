@@ -60,10 +60,10 @@ int main(int argc, const char * argv[]){
         runtime::Tensor input_tensor = runtime::Tensor(_input);
 
         // function
-        Function func(graph, {parser.get_input()});
-        func.forward({input_tensor});
-        std::shared_ptr<runtime::Tensor> output_tensor = graph[graph.size()-1]->get_outputs().at(0).get_tensor_ptr();
-        auto pre_output_eigen = output_tensor->get_tensor_r2_ptr();
+        Function func(graph, {parser.get_input()}, {graph[graph.size()-1]});
+        auto output_tensors = func.forward({input_tensor});
+        assert(output_tensors.size() == 1);
+        auto pre_output_eigen = output_tensors.at(0).get_tensor_r2_ptr();
 
         Tensor1f output_eigen = Tensor1f(batch_size);
 
