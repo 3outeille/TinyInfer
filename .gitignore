@@ -4,3 +4,4 @@ build/
 .idea/
 cmake-build-debug/
 .vscode/
+proto_built/

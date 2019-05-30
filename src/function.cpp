@@ -1,9 +1,12 @@
 #include "function.hpp"
+#include "graph_util.hpp"
 
 using namespace tinyinfer;
 
 Function::Function(const NodeVector& graph, const ParameterVector& parameters)
-    : m_graph(graph), m_parameters(parameters) {}
+    : m_graph(graph), m_parameters(parameters) {
+  m_graph = topological_sort(m_graph);
+}
 
 void Function::forward(const std::vector<runtime::Tensor> inputs) {
   assert(inputs.size() == m_parameters.size());

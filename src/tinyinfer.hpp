@@ -1,6 +1,7 @@
 #pragma once
 
 #include "function.hpp"
+#include "graph_util.hpp"
 #include "input.hpp"
 #include "node.hpp"
 #include "output.hpp"
