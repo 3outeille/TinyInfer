@@ -7,10 +7,12 @@
 #include "function.hpp"
 #include "runtime/tensor.hpp"
 #include "utils/io.hpp"
+#include <chrono>
 
 using namespace tinyinfer;
 
 int main(int argc, const char * argv[]){
+    // Eigen::initParallel();
     // parse graph
     std::string input_pb = "data/model.pb";
     std::string tensor_weights_dir = "data/tensor_weights";
@@ -28,7 +30,13 @@ int main(int argc, const char * argv[]){
     std::cout << "original number of node " << func.get_graph().size() << "\n";
     func.optimize_graph();
     std::cout << "optimized graph, number of node " << func.get_graph().size() << "\n";
+    auto start = std::chrono::high_resolution_clock::now();
+    for (int i = 0; i < 9; i++){
+        func.forward({input_tensor});
+    }
     auto output_tensors = func.forward({input_tensor});
+    auto finish = std::chrono::high_resolution_clock::now();
+    std::cout<<"time collapsed: " << std::chrono::duration_cast<std::chrono::seconds>(finish-start).count()/10.0 << " s\n";
     assert(output_tensors.size() == 1);
 //    std::shared_ptr<runtime::Tensor> output_tensor = graph[graph.size()-1]->get_outputs().at(0).get_tensor_ptr();
     auto output_eigen = output_tensors.at(0).get_tensor_r2_ptr();

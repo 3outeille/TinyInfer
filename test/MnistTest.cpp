@@ -18,15 +18,15 @@ typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
 
 int main(int argc, const char * argv[]){
     // parse graph
-    std::string input_pb = "../data/model.pb";
-    std::string tensor_weights_dir = "../data/tensor_weights";
+    std::string input_pb = "data/model.pb";
+    std::string tensor_weights_dir = "data/tensor_weights";
 
     Parser parser;
     auto graph = parser.parse(input_pb, tensor_weights_dir);
 
     // load data
-    std::string input_tensor_frame = "../data/x_test.tensor";
-    std::string expected_output_frame = "../data/y_test.tensor";
+    std::string input_tensor_frame = "data/minst_data/x_test.tensor";
+    std::string expected_output_frame = "data/minst_data/y_test.tensor";
     runtime::Tensor pre_input_tensor = io::load_kernel_weight_3d(input_tensor_frame);
 
     // load output data
