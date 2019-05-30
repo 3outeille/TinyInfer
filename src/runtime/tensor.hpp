@@ -12,7 +12,7 @@ namespace tinyinfer {
 namespace runtime {
 
 /**
- * @brief a class for runtime tensor.
+ * @brief Runtime tensor class, a wrapper of exact eigen tensor
  */
 class Tensor {
  private:

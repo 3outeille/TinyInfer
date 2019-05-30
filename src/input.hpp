@@ -6,6 +6,9 @@ namespace tinyinfer {
 class Node;
 class Output;
 
+/**
+ * \brief Output objects affiliated to Node
+ */
 class Input {
   friend class Node;
 

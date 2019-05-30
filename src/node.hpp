@@ -13,6 +13,9 @@ namespace tinyinfer {
 class Node;
 using NodeVector = std::vector<std::shared_ptr<Node>>;
 
+/**
+ * \brief Backbone of our data flow graph IR, basically contains a operator
+ */
 class Node : public std::enable_shared_from_this<Node> {
   friend class Input;
   friend class Output;

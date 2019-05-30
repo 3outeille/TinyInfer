@@ -4,6 +4,10 @@
 #include "op/parameter.hpp"
 
 namespace tinyinfer {
+/**
+* \brief Data flow graph is finally compiled into a function,
+*   then to get the result by passing parameters to it
+*/
 class Function {
  protected:
   NodeVector m_graph;

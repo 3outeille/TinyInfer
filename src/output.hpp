@@ -9,6 +9,9 @@
 namespace tinyinfer {
 class Node;
 
+/**
+ * \brief Output objects affiliated to Node
+ */
 class Output {
  protected:
   Node* m_node;
