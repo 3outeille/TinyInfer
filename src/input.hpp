@@ -27,6 +27,8 @@ class Input {
   size_t get_index() const { return m_index; }
   // return the connected output
   Output& get_output() { return *m_output; }
+  // prepare a interface to modify the link directly
+  void set_output(Output& output);
   // return the tensor of the connected output
   std::shared_ptr<runtime::Tensor> get_tensor_ptr();
   // return the shape of tensor of the connected output
