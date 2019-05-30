@@ -16,10 +16,10 @@ int main(int argc, const char* argv[]) {
   Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor> t_1d(2);
   t_1d(0) = 1;
   t_1d(1) = 2;
-  Function f({input_node, sampleOp_node}, {input_node});
-  f.forward({runtime::Tensor(t_1d)});
+  Function f({input_node, sampleOp_node}, {input_node}, {sampleOp_node});
+  auto res = f.forward({runtime::Tensor(t_1d)}).at(0);
 
-  auto res = sampleOp_node->get_outputs().at(0).get_tensor_ptr();
-  std::cout << res->get_tensor_r1_ptr()(0) << " got 2?\n";
-  std::cout << res->get_tensor_r1_ptr()(1) << " got 3?\n";
+  // auto res = sampleOp_node->get_outputs().at(0).get_tensor_ptr();
+  std::cout << res.get_tensor_r1_ptr()(0) << " got 2?\n";
+  std::cout << res.get_tensor_r1_ptr()(1) << " got 3?\n";
 }
