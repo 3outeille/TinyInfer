@@ -1,6 +1,7 @@
 #include "function.hpp"
 #include "graph_util.hpp"
 #include "pass/dropout_elimination.hpp"
+#include "pass/convolve_relu_fusion.hpp"
 
 using namespace tinyinfer;
 
@@ -11,6 +12,7 @@ Function::Function(const NodeVector& graph, const ParameterVector& parameters, c
 
 void Function::optimize_graph(){
   m_graph = pass::dropout_elimination(m_graph);
+  m_graph = pass::convolve_relu_fusion(m_graph);
 }
 
 const std::vector<runtime::Tensor> Function::forward(const std::vector<runtime::Tensor> inputs) {

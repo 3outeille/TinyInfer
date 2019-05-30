@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "op/op.hpp"
+#include "op/convolution_relu_op.hpp"
 
 namespace tinyinfer {
     namespace op {
@@ -11,7 +12,8 @@ namespace tinyinfer {
          * Implement the runtime op node for Conv2d Operation
          */
         class ConvOp : public Op {
-        private:
+            friend class ConvReluOp;
+        protected:
             std::shared_ptr<runtime::Tensor> m_weights = nullptr;
             std::shared_ptr<runtime::Tensor> m_bias = nullptr;
 
