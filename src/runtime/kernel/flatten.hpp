@@ -19,6 +19,7 @@ typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
 /**
  * @brief flatten layer
  * @param _input
+ * @return a tensor after the flatten layer
  */
 std::shared_ptr<runtime::Tensor> Flatten(std::shared_ptr<runtime::Tensor> input) {
     Tensor4f _input = input->get_tensor_r4_ptr();

@@ -19,6 +19,7 @@ typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
 /**
  * @brief soft max layer
  * @param _input
+ * @return a tensor after the soft max layer
  */
 std::shared_ptr<runtime::Tensor> Softmax(std::shared_ptr<runtime::Tensor> input) {
     Tensor2f _input = input->get_tensor_r2_ptr();

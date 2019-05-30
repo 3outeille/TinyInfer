@@ -19,6 +19,7 @@ typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
 /**
  * @brief drop out layer
  * @param _input
+ * @return a tensor after the drop out layer
  */
 std::shared_ptr<runtime::Tensor> Dropout(std::shared_ptr<runtime::Tensor> input) {
     if (input->get_rank() == 2) {

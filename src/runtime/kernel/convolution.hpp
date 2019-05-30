@@ -23,7 +23,7 @@ typedef typename Eigen::Tensor<TENSOR_DATA_TYPE, 4, Eigen::RowMajor> Tensor4f;
  * @param _input
  * @param stride_row
  * @param stride_col
- * @return
+ * @return a tensor after the convolution layer
  */
 const std::shared_ptr<runtime::Tensor>Conv(const std::shared_ptr<runtime::Tensor> kernel,
                                             const std::shared_ptr<runtime::Tensor> bias,
