@@ -13,6 +13,8 @@ std::shared_ptr<Node> Input::get_node() const {
   return m_node->shared_from_this();
 }
 
+void Input::set_output(Output& output) { m_output = &output; }
+
 std::shared_ptr<runtime::Tensor> Input::get_tensor_ptr() {
   return m_output->get_tensor_ptr();
 }

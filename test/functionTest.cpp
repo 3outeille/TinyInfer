@@ -17,6 +17,7 @@ int main(int argc, const char* argv[]) {
   t_1d(0) = 1;
   t_1d(1) = 2;
   Function f({input_node, sampleOp_node}, {input_node}, {sampleOp_node});
+  f.optimize_graph();
   auto res = f.forward({runtime::Tensor(t_1d)}).at(0);
 
   // auto res = sampleOp_node->get_outputs().at(0).get_tensor_ptr();

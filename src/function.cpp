@@ -1,11 +1,16 @@
 #include "function.hpp"
 #include "graph_util.hpp"
+#include "pass/dropout_elimination.hpp"
 
 using namespace tinyinfer;
 
 Function::Function(const NodeVector& graph, const ParameterVector& parameters, const NodeVector& targets)
     : m_graph(graph), m_parameters(parameters), m_targets(targets) {
   m_graph = topological_sort(m_graph);
+}
+
+void Function::optimize_graph(){
+  m_graph = pass::dropout_elimination(m_graph);
 }
 
 const std::vector<runtime::Tensor> Function::forward(const std::vector<runtime::Tensor> inputs) {

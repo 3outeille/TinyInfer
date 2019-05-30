@@ -14,6 +14,7 @@ void Output::set_tensor_ptr(const std::shared_ptr<runtime::Tensor>& tensor) {
 void Output::add_input(Input* input) { m_inputs.insert(input); }
 
 void Output::remove_input(Input* input) {
+  // crash and tell us if the case happen
   assert(m_inputs.count(input) != 0);
   m_inputs.erase(input);
 }

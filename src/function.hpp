@@ -14,6 +14,8 @@ class Function {
   Function(const NodeVector& graph, const ParameterVector& parameters, const NodeVector& targets);
   ~Function() {}
 
+  void optimize_graph();
+
   // passing by runtime::Tensor here might be the most convinient interface
   const std::vector<runtime::Tensor> forward(const std::vector<runtime::Tensor> inputs);
 };

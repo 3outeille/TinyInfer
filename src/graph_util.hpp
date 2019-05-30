@@ -1,8 +1,5 @@
 #pragma once
 
-#include <deque>
-#include <unordered_map>
-
 #include "node.hpp"
 
 namespace tinyinfer {
