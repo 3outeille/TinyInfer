@@ -12,7 +12,8 @@ namespace tinyinfer {
          */
         class ReluOp : public Op {
         public:
-            ReluOp(const std::shared_ptr<Node>& arg);
+            ReluOp(const std::shared_ptr<Node> &arg);
+
             void virtual forward();
         };
     }

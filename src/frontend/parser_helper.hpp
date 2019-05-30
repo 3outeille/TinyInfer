@@ -3,7 +3,7 @@
 #include <vector>
 #include "node_def.pb.h"
 
-namespace tinyinfer{
+namespace tinyinfer {
 
     namespace parser_helper {
 
@@ -28,7 +28,7 @@ namespace tinyinfer{
          * e.g: conv2d_1/convolution, conv2d_1/kernel, conv2d_1/bias
          * @return: vector of node attributions {node_name, operation}
          */
-        std::vector<std::string> parse_node_name(const std::string& parse_node_name);
+        std::vector<std::string> parse_node_name(const std::string &parse_node_name);
 
         /**
          * Parse the probobuf Nodedef for graph nodes (Like Conv2d, Flatten)

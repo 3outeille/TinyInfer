@@ -3,21 +3,21 @@
 #include "runtime/tensor.hpp"
 
 namespace tinyinfer {
-namespace runtime {
-namespace kernel {
+    namespace runtime {
+        namespace kernel {
 /**
  * @brief sample operation (addition operation)
  * @param input
  * @param constant
  * @return a tensor after the addition operation
  */
-std::shared_ptr<runtime::Tensor> addconstant(
-    const std::shared_ptr<runtime::Tensor> input,
-    const std::shared_ptr<runtime::Tensor> constant) {
-  Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor> result =
-      input->get_tensor_r1_ptr() + constant->get_tensor_r1_ptr();
-  return std::make_shared<runtime::Tensor>(result);
-}
-}
-}
+            std::shared_ptr<runtime::Tensor> addconstant(
+                    const std::shared_ptr<runtime::Tensor> input,
+                    const std::shared_ptr<runtime::Tensor> constant) {
+                Eigen::Tensor<TENSOR_DATA_TYPE, 1, Eigen::RowMajor> result =
+                        input->get_tensor_r1_ptr() + constant->get_tensor_r1_ptr();
+                return std::make_shared<runtime::Tensor>(result);
+            }
+        }
+    }
 }

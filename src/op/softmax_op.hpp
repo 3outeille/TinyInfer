@@ -12,7 +12,8 @@ namespace tinyinfer {
          */
         class SoftmaxOp : public Op {
         public:
-            SoftmaxOp(const std::shared_ptr<Node>& arg);
+            SoftmaxOp(const std::shared_ptr<Node> &arg);
+
             void virtual forward();
         };
     }

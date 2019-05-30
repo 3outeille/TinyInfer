@@ -24,6 +24,7 @@ namespace tinyinfer {
     class Parser {
     public:
         Parser();
+
         ~Parser();
 
         /**
@@ -44,7 +45,7 @@ namespace tinyinfer {
          * Parse all nodes in the input graph (protobuf)
          * @param graph_def: the input graph (protobuf)
          */
-        void parse_nodes(const GraphDef& graph_def, const std::string& weights_dir);
+        void parse_nodes(const GraphDef &graph_def, const std::string &weights_dir);
 
         // ========================= Various Node Parsing =========================
         /**
@@ -52,49 +53,49 @@ namespace tinyinfer {
          * @param node_def: input node (protobuf)
          * @param weights_dir: the weights directory
          */
-        void parse_conv2d(const NodeDef& node_def, const std::string& weights_dir);
+        void parse_conv2d(const NodeDef &node_def, const std::string &weights_dir);
 
         /**
          * Parse node (protobuf) for the dense operation and create new node in the result graph
          * @param node_def: input node (protobuf)
          * @param weights_dir: the weights directory
          */
-        void parse_dense(const NodeDef& node_def, const std::string& weights_dir);
+        void parse_dense(const NodeDef &node_def, const std::string &weights_dir);
 
         /**
          * Parse node (protobuf) for the maxpooling2d operation and create new node in the result graph
          * @param node_def: input node (protobuf)
          * @param weights_dir: the weights directory
          */
-        void parse_maxpooling2d(const NodeDef& node_def, const std::string& weights_dir);
+        void parse_maxpooling2d(const NodeDef &node_def, const std::string &weights_dir);
 
         /**
          * Parse node (protobuf) for the relu operation and create new node in the result graph
          * @param node_def: input node (protobuf)
          * @param weights_dir: the weights directory
          */
-        void parse_relu(const NodeDef& node_def, const std::string& weights_dir);
+        void parse_relu(const NodeDef &node_def, const std::string &weights_dir);
 
         /**
          * Parse node (protobuf) for the softmax operation and create new node in the result graph
          * @param node_def: input node (protobuf)
          * @param weights_dir: the weights directory
          */
-        void parse_softmax(const NodeDef& node_def, const std::string& weights_dir);
+        void parse_softmax(const NodeDef &node_def, const std::string &weights_dir);
 
         /**
          * Parse node (protobuf) for the dropout operation and create new node in the result graph
          * @param node_def: input node (protobuf)
          * @param weights_dir: the weights directory
          */
-        void parse_dropout(const NodeDef& node_def, const std::string& weights_dir);
+        void parse_dropout(const NodeDef &node_def, const std::string &weights_dir);
 
         /**
          * Parse node (protobuf) for the flatten operation and create new node in the result graph
          * @param node_def: input node (protobuf)
          * @param weights_dir: the weights directory
          */
-        void parse_flatten(const NodeDef& node_def, const std::string& weights_dir);
+        void parse_flatten(const NodeDef &node_def, const std::string &weights_dir);
 
         // ======================= General Helper Functions =======================
         /**
@@ -105,7 +106,7 @@ namespace tinyinfer {
          * @param node_name: the input node_name for lookup
          * @return the input node coresponding to the node_name
          */
-        std::shared_ptr<Node> get_input_node(const std::string& node_name);
+        std::shared_ptr<Node> get_input_node(const std::string &node_name);
 
         // ================== Attr =====================
         // the input tensor

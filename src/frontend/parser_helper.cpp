@@ -1,6 +1,6 @@
 #include "parser_helper.hpp"
 
-namespace tinyinfer{
+namespace tinyinfer {
 
     namespace parser_helper {
 
@@ -20,7 +20,7 @@ namespace tinyinfer{
             return {stride_x, stride_y};
         }
 
-        std::vector<std::string> parse_node_name(const std::string& parse_node_name) {
+        std::vector<std::string> parse_node_name(const std::string &parse_node_name) {
             std::vector<std::string> results;
             std::string delimiter = "/";
             std::string input = parse_node_name;
@@ -45,14 +45,13 @@ namespace tinyinfer{
             std::string node_name = parse_node_name(node_def.name())[0];
 
             // if input is not self-contain (has the same name), it is an operation
-            for (int i = 0; i < node_def.input_size(); i++){
+            for (int i = 0; i < node_def.input_size(); i++) {
                 auto tmp = parse_node_name(node_def.input(i));
-                if (tmp.size() == 1){
+                if (tmp.size() == 1) {
                     // this is the input [the place holder]
                     results.push_back(tmp[0]);
-                }
-                else{
-                    if (tmp[0] != node_name){
+                } else {
+                    if (tmp[0] != node_name) {
                         // this is the input
                         results.push_back(tmp[0]);
                     }
@@ -68,7 +67,7 @@ namespace tinyinfer{
             std::string node_name = parse_node_name(node_def.name())[0];
 
             // if input is not self-contain (has the same name), it is an operation
-            for (int i = 0; i < node_def.input_size(); i++){
+            for (int i = 0; i < node_def.input_size(); i++) {
                 auto tmp = parse_node_name(node_def.input(i));
                 results.push_back(tmp[0]);
             }

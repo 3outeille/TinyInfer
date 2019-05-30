@@ -19,7 +19,7 @@ namespace tinyinfer {
              * Construct the node with input nodes
              * @param arg: the input nodes
              */
-            DropoutOp(const std::shared_ptr<Node>& arg);
+            DropoutOp(const std::shared_ptr<Node> &arg);
 
             /**
              * The forward operation
