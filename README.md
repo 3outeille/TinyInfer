@@ -24,7 +24,35 @@ cmake ..
 make -j3
 ```
 
-## File Structure
-- train: contain python scripts for training (need tensorflow to run)
-- infer:
-	+ proto: protobuf message defination for tensorflow
+### using for MNIST inference
+
+##### Generate input tensor and weights
+Refer to jupyter nodebooks under ```train/jupyter```
+
+##### Inference
+```bash
+./predict {PATH_TO_PB_MODEL} {DIR_TO_TENSOR_WEIGHTS} {PATH_TO_INPUT}
+# for exmaple
+./predict ../data/model.pb ../data/tensor_weights ../data/demo_input/input.tensor
+```
+
+### static library
+```cmake
+add_subdirectory(src)
+```
+This will invoke the cmake file in src and produce a static library ```TinyinferLib```, which can be included for inferring other network.
+
+example usage:
+```cmake
+add_executable(predict test/predict.cpp)
+target_link_libraries(predict TinyinferLib)
+```
+
+
+### Acknowledgement
+This project is the course project for CS133 advanced C++ at ShanghaiTech University.
+
+### Author
+- Jianxiong Cai
+- Zhiqiang Xie
+- Jiadi Cui

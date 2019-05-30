@@ -62,8 +62,8 @@ add_subdirectory(src)
 add_executable(main test/main.cpp)
 target_link_libraries(main TinyinferLib)
 
-add_executable(infer test/infer.cpp)
-target_link_libraries(infer TinyinferLib)
+add_executable(infertest test/inferTest.cpp)
+target_link_libraries(infertest TinyinferLib)
 
 add_executable(predict test/predict.cpp)
 target_link_libraries(predict TinyinferLib)
