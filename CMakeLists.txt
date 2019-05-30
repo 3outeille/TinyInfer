@@ -65,6 +65,9 @@ target_link_libraries(main TinyinferLib)
 add_executable(infer test/infer.cpp)
 target_link_libraries(infer TinyinferLib)
 
+add_executable(mnist test/MnistTest.cpp)
+target_link_libraries(mnist TinyinferLib)
+
 add_executable(sampletest test/sampleTest.cpp)
 target_link_libraries(sampletest TinyinferLib)
 
