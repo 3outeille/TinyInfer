@@ -24,10 +24,11 @@ int main(int argc, const char * argv[]){
     runtime::Tensor input_tensor = io::load_kernel_weight_4d(input_tensor_fname);
 
     // fucntion
-    Function func(graph, {parser.get_input()});
-    func.forward({input_tensor});
-    std::shared_ptr<runtime::Tensor> output_tensor = graph[graph.size()-1]->get_outputs().at(0).get_tensor_ptr();
-    auto output_eigen = output_tensor->get_tensor_r2_ptr();
+    Function func(graph, {parser.get_input()}, {graph[graph.size()-1]});
+    auto output_tensors = func.forward({input_tensor});
+    assert(output_tensors.size() == 1);
+//    std::shared_ptr<runtime::Tensor> output_tensor = graph[graph.size()-1]->get_outputs().at(0).get_tensor_ptr();
+    auto output_eigen = output_tensors.at(0).get_tensor_r2_ptr();
 //    std::cout << output_tensor->get_rank() << std::endl;
 //    std::cout << output_tensor->get_tensor_r2_ptr()(0,0) << std::endl;
 
