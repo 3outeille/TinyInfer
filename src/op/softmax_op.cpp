@@ -1,8 +1,8 @@
 #include "op/softmax_op.hpp"
 #include "runtime/kernel/softmax.hpp"
 
-namespace tinyinfer{
-    namespace op{
+namespace tinyinfer {
+    namespace op {
         SoftmaxOp::SoftmaxOp(const std::shared_ptr<tinyinfer::Node> &arg)
                 : Op("softmax", check_args_single_output({arg})) {
             validate_and_infer();

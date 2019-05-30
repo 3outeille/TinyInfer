@@ -23,7 +23,7 @@ namespace tinyinfer {
              * Construct the node with input nodes
              * @param arg: the input nodes
              */
-            Maxpooling2dOp(const std::shared_ptr<Node>& arg);
+            Maxpooling2dOp(const std::shared_ptr<Node> &arg);
 
             /**
              * Register all params
@@ -35,9 +35,13 @@ namespace tinyinfer {
             void register_params(int kernel_x, int kernel_y, int stride_x, int stride_y);
 
             void set_kernel_x(int x);
+
             void set_kernel_y(int y);
+
             void set_stride_x(int x);
+
             void set_stride_y(int y);
+
             void virtual forward();
         };
     }

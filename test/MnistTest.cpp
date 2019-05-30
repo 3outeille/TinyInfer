@@ -1,7 +1,6 @@
 /***
  * Mnist test
  */
-#pragma once
 
 #include <iostream>
 #include "frontend/parser.hpp"

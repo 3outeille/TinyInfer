@@ -13,6 +13,7 @@ namespace tinyinfer {
          */
         class ConvReluOp : public Op {
             friend class ConvOp;
+
         protected:
             std::shared_ptr<runtime::Tensor> m_weights = nullptr;
             std::shared_ptr<runtime::Tensor> m_bias = nullptr;
@@ -25,7 +26,7 @@ namespace tinyinfer {
              * Construct the node via a Conv2d node
              * @param arg: the Conv2d nodes
              */
-            ConvReluOp(const std::shared_ptr<Node>& arg);
+            ConvReluOp(const std::shared_ptr<Node> &arg);
 
             /**
              * The forward operation

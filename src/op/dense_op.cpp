@@ -1,8 +1,8 @@
 #include "op/dense_op.hpp"
 #include "runtime/kernel/dense.hpp"
 
-namespace tinyinfer{
-    namespace op{
+namespace tinyinfer {
+    namespace op {
         DenseOp::DenseOp(const std::shared_ptr<tinyinfer::Node> &arg)
                 : Op("dense", check_args_single_output({arg})) {
             validate_and_infer();

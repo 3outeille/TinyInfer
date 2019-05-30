@@ -3,5 +3,5 @@
 #include "node.hpp"
 
 namespace tinyinfer {
-NodeVector topological_sort(const NodeVector& nodes);
+    NodeVector topological_sort(const NodeVector &nodes);
 }
