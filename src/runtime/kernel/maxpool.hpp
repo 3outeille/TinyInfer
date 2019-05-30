@@ -31,6 +31,7 @@ std::shared_ptr<runtime::Tensor> Maxpool(std::shared_ptr<runtime::Tensor> input,
     Tensor4f _output = Tensor4f(_input.dimension(0), ceil((float)_input.dimension(1) / stride_row),
                                 ceil((float)_input.dimension(2) / stride_col), _input.dimension(3)); /// return value
 
+	#pragma omp parallel for collapse(4)
     for (auto i = 0; i < _output.dimension(0); ++i) {
         for (auto l = 0; l < _output.dimension(3); ++l) {
 
