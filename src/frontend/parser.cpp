@@ -9,7 +9,7 @@
 
 namespace tinyinfer {
 
-    Parser::Parser(): m_nodes(), m_activations(), m_input_name(), m_input_node(), m_input_node_param() {
+    Parser::Parser(): m_nodes(), m_activations(), m_input_name(), m_input_node() {
 
     }
 
@@ -71,7 +71,6 @@ namespace tinyinfer {
                 m_input_name = node_name;
                 m_input_node = std::make_shared<op::Parameter>();
                 m_results.push_back(m_input_node);
-//                m_nodes.insert(std::make_pair(node_name, new_node));
 
             }
             else if (node_op == "Relu"){            // relu
@@ -204,14 +203,10 @@ namespace tinyinfer {
         auto ksize = node_attr.operator[]("ksize");
         int kernel_x = ksize.list().i(1);
         int kernel_y = ksize.list().i(2);
-//        new_node->set_kernel_x(kernel_x);
-//        new_node->set_kernel_y(kernel_y);
 
         auto strides = node_attr.operator[]("strides");
         int stride_x = strides.list().i(1);
         int stride_y = strides.list().i(2);
-//        new_node->set_stride_x(stride_x);
-//        new_node->set_stride_y(stride_y);
 
         new_node->register_params(kernel_x, kernel_y, stride_x, stride_y);
     }
@@ -305,39 +300,20 @@ namespace tinyinfer {
     }
 
     std::vector<std::string> Parser::parse_node_name(const std::string& parse_node_name) {
-//    std::stringstream stream(parse_node_name);
-//    std::string word;
-//    getline(stream, word, '/');
-//
-//    return word;
         std::vector<std::string> results;
         std::string delimiter = "/";
         std::string input = parse_node_name;
 
         size_t pos = 0;
         std::string token;
-        // go through all delimter
-//    while ((pos = input.find(delimiter)) != std::string::npos) {
-//        token = input.substr(0, pos);
-////        std::cout << token << std::endl;
-//        results.push_back(token);
-//        input.erase(0, pos + delimiter.length());
-//    }
-////    std::cout << input << std::endl;
 
         if ((pos = input.find(delimiter)) != std::string::npos) {
             token = input.substr(0, pos);
-//        std::cout << token << std::endl;
             results.push_back(token);
             input.erase(0, pos + delimiter.length());
         }
-//    std::cout << input << std::endl;
 
         results.push_back(input);
-
-//        for (auto v : results){
-//            std::cout << v << std::endl;
-//        }
 
         return results;
     }
