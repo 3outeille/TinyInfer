@@ -26,7 +26,7 @@ make -j3
 
 ### using for MNIST inference
 #### Data
-- download data from the [realse page](https://github.com/jianxiongcai/cs133_tinyinfer_data/releases) of the data repo.
+- download data from the [release page](https://github.com/jianxiongcai/cs133_tinyinfer_data/releases) of the data repo.
 - untar the file in project root directory. This will have everything needed for running demo in ```data``` folder.
 - Alternatively you may refer to the jupyter notebooks under [train/jupyter](train/jupyter) to generate new input data. 
 
