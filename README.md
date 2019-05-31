@@ -27,7 +27,7 @@ make -j3
 ### using for MNIST inference
 
 ##### Generate input tensor and weights
-Refer to jupyter nodebooks under ```train/jupyter```
+Refer to jupyter nodebooks under [train/jupyter](train/jupyter)
 
 ##### Inference
 ```bash
@@ -36,6 +36,7 @@ Refer to jupyter nodebooks under ```train/jupyter```
 ./predict ../data/model.pb ../data/tensor_weights ../data/demo_input/input.tensor
 ```
 
+Alternatively, we provide a jupyter notebook for reference. (See jupyter Notebook [demo.ipynb](demo/jupyter/demo.ipynb))
 ### static library
 ```cmake
 add_subdirectory(src)
