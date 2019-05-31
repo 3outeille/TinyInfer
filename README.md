@@ -25,9 +25,13 @@ make -j3
 ```
 
 ### using for MNIST inference
+#### Data
+- download data from the [realse page](https://github.com/jianxiongcai/cs133_tinyinfer_data/releases) of the data repo.
+- untar the file in project root directory. This will have everything needed for running demo in ```data``` folder.
+- Alternatively you may refer to the jupyter notebooks under [train/jupyter](train/jupyter) to generate new input data. 
 
-##### Generate input tensor and weights
-Refer to jupyter nodebooks under [train/jupyter](train/jupyter)
+#### Generate input tensor and weights
+Refer to jupyter nodebooks under [demo/jupyter/demo.ipynb](demo/jupyter/demo.ipynb)
 
 ##### Inference
 ```bash
