@@ -57,6 +57,9 @@ target_link_libraries(predict TinyinferLib)
 ### Acknowledgement
 This project is the course project for CS133 advanced C++ at ShanghaiTech University.
 
+### Presentation Archive
+see [CS133-Presentation.pdf](CS133-Presentation.pdf)
+
 ### Author
 - Jianxiong Cai
 - Zhiqiang Xie
