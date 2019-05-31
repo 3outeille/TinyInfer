@@ -33,7 +33,7 @@ make -j3
 #### Generate input tensor and weights
 Refer to jupyter nodebooks under [demo/jupyter/demo.ipynb](demo/jupyter/demo.ipynb)
 
-##### Inference
+#### Inference
 ```bash
 ./predict {PATH_TO_PB_MODEL} {DIR_TO_TENSOR_WEIGHTS} {PATH_TO_INPUT}
 # for exmaple
